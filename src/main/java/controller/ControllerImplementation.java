@@ -355,6 +355,12 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     public void handleDeleteAll() {
+        
+        if (readAll().isEmpty()){
+            JOptionPane.showMessageDialog(menu, "There are not people registered yet.", "Delete All - People v1.1.0", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         Object[] options = {"Yes", "No"};
         //int answer = JOptionPane.showConfirmDialog(menu, "Are you sure to delete all people registered?", "Delete All - People v1.1.0", 0, 0);
         int answer = JOptionPane.showOptionDialog(
