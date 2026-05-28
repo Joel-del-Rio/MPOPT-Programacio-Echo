@@ -150,6 +150,7 @@ public class ControllerImplementation implements IController, ActionListener {
         count.setVisible(true);
     }
 
+    
     @Override
     public int count() {
         int total = 0;
