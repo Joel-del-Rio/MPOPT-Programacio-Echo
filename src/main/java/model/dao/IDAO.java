@@ -63,4 +63,12 @@ public interface IDAO {
      * @throws java.lang.Exception
      */
     public abstract void deleteAll () throws Exception;
+    
+    /**
+     * This function returns the total number of people registered in the 
+     * storage system.
+     * @return int number of people
+     * @throws java.lang.Exception
+     */
+    public abstract int count() throws Exception;
 }
