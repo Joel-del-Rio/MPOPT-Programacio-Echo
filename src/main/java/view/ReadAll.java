@@ -24,9 +24,7 @@ public class ReadAll extends javax.swing.JDialog {
         table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(6).setCellRenderer(centerRenderer); // Nueva columna Postal Code
+        table.getColumnModel().getColumn(4).setCellRenderer(centerRenderer); // Nueva columna Postal Code
         
         setLocationRelativeTo(null);
     }
