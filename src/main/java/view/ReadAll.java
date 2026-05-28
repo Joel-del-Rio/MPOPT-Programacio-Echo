@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -34,7 +35,7 @@ public class ReadAll extends javax.swing.JDialog {
         return table;
     }
 
-    public jButton getExportButton() {
+    public JButton getExportButton() {
         return btnExport; 
     }
 
@@ -53,8 +54,8 @@ public class ReadAll extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jButton = new javax.swing.JButton();
+        label = new javax.swing.JLabel();
+        btnExport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Read All - People v1.1.0");
@@ -95,33 +96,33 @@ public class ReadAll extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(24, 24, 12, 24);
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
-        jLabel2.setRequestFocusEnabled(false);
+        label.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
+        label.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 24);
-        getContentPane().add(jLabel2, gridBagConstraints);
+        getContentPane().add(label, gridBagConstraints);
 
-        jButton.setText("Export");
+        btnExport.setText("Export");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 7);
-        getContentPane().add(jButton, gridBagConstraints);
+        getContentPane().add(btnExport, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnExport;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel label;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
