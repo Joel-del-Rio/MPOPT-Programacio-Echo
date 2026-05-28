@@ -315,27 +315,13 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
-        String postalCodeInput = insert.getPostalCodeField().getText().trim();
         
-        
-        String regex = "^(\\d{5})(?:[-\\s]?\\d{4})?$";
-        
-        
-        if (!postalCodeInput.matches(regex)) {
-            JOptionPane.showMessageDialog(
-                insert, 
-                "Invalid Postal Code format. Please enter a valid postal code (e.g., 12345 or 12345-6789).", 
-                insert.getTitle(), 
-                JOptionPane.ERROR_MESSAGE
-            );
-            return; 
-        }
 
        
         Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
         
         
-        p.setPostalCode(postalCodeInput); 
+ 
         
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());

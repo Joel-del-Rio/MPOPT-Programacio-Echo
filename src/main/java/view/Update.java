@@ -67,25 +67,18 @@ public class Update extends javax.swing.JDialog {
     public JButton getReset() {
         return reset;
     }
-
-    public JTextField getEmail() {
-        return email;
+    public JTextField getPhoneField() {
+    return number; 
     }
-
-    public void setEmail(JTextField email) {
-        this.email = email;
-    }
-
-    public JTextField getPhoneNumber() {
-        return number;
-    }
-
-    public JTextField getPostal() {
-        return postal;
-    }
+        
     
-    
-
+   private void showInsert() {
+        if (!name.getText().isEmpty() && name.getText().length() > 0) {
+            update.setEnabled(true);
+        } else {
+            update.setEnabled(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,13 +98,8 @@ public class Update extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         dateOfBirth = new org.jdatepicker.JDatePicker();
         reset = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         read = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        email = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         number = new javax.swing.JTextField();
-        postal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -150,7 +138,9 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel1, gridBagConstraints);
 
+        nif.setForeground(new java.awt.Color(153, 153, 153));
         nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
+        nif.setToolTipText("");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
@@ -308,18 +298,6 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(reset, gridBagConstraints);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 12);
-        getContentPane().add(jLabel2, gridBagConstraints);
-
         read.setText("readnoVisible");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -327,63 +305,6 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 12);
         getContentPane().add(read, gridBagConstraints);
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Email");
-        jLabel4.setMaximumSize(new java.awt.Dimension(100, 22));
-        jLabel4.setMinimumSize(new java.awt.Dimension(100, 22));
-        jLabel4.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
-        getContentPane().add(jLabel4, gridBagConstraints);
-
-        email.setForeground(new java.awt.Color(153, 153, 153));
-        email.setText("Enter email");
-        email.setEnabled(false);
-        email.setMaximumSize(new java.awt.Dimension(400, 22));
-        email.setMinimumSize(new java.awt.Dimension(400, 22));
-        email.setPreferredSize(new java.awt.Dimension(400, 22));
-        email.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                emailMouseClicked(evt);
-            }
-        });
-        email.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                emailKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                emailKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                emailKeyTyped(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
-        getContentPane().add(email, gridBagConstraints);
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setText("Postal Code");
-        jLabel5.setMaximumSize(new java.awt.Dimension(100, 22));
-        jLabel5.setMinimumSize(new java.awt.Dimension(100, 22));
-        jLabel5.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
-        getContentPane().add(jLabel5, gridBagConstraints);
 
         number.setForeground(new java.awt.Color(153, 153, 153));
         number.setText("Enter number");
@@ -409,48 +330,12 @@ public class Update extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(number, gridBagConstraints);
-
-        postal.setForeground(new java.awt.Color(153, 153, 153));
-        postal.setText("Enter postal");
-        postal.setEnabled(false);
-        postal.setMaximumSize(new java.awt.Dimension(400, 22));
-        postal.setMinimumSize(new java.awt.Dimension(400, 22));
-        postal.setPreferredSize(new java.awt.Dimension(400, 22));
-        postal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                postalMouseClicked(evt);
-            }
-        });
-        postal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                postalActionPerformed(evt);
-            }
-        });
-        postal.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                postalKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                postalKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                postalKeyTyped(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
-        getContentPane().add(postal, gridBagConstraints);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Phone number");
@@ -469,13 +354,20 @@ public class Update extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void showInsert() {
-        if (!name.getText().isEmpty() && name.getText().length() > 0) {
-            update.setEnabled(true);
-        } else {
-            update.setEnabled(false);
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void nifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nifMouseClicked
+        if (nif.getForeground().equals(new Color(153, 153, 153))) {
+            nif.setText("");
+            nif.setForeground(Color.black);
         }
-    }
+    }//GEN-LAST:event_nifMouseClicked
+
+    private void nifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nifActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nifActionPerformed
 
     private void nifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyPressed
         if (nif.getText().length() == 8) {
@@ -495,8 +387,9 @@ public class Update extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyReleased
 
     private void nifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyTyped
-        if (nif.getText().equals("Enter NIF number, letter is calculated (e.g., 12345678)")) {
+        if (nif.getForeground().equals(new Color(153, 153, 153))) {
             nif.setText("");
+            nif.setForeground(Color.black);
         }
         if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
             JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
@@ -504,20 +397,59 @@ public class Update extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_nifKeyTyped
 
+    private void photoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_photoMouseClicked
+        photo.setIcon(null);
+    }//GEN-LAST:event_photoMouseClicked
+
+    private void nameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameMouseClicked
+        if (name.getForeground().equals(new Color(153, 153, 153))) {
+            name.setText("");
+            name.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_nameMouseClicked
+
+    private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
+        if (!isLetter(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_UP
+            && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_LEFT
+            && evt.getKeyCode() != KeyEvent.VK_RIGHT && evt.getKeyCode() != KeyEvent.VK_SHIFT
+            && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, "Type only uppercase or lowercase letters, hyphens, and whitespace.", "UPdate - People v1.0", JOptionPane.WARNING_MESSAGE);
+            int posDelete = name.getText().indexOf(evt.getKeyChar());
+
+            if (posDelete != -1) {
+                StringBuilder newName = new StringBuilder(name.getText());
+                name.setText(newName.deleteCharAt(posDelete).toString());
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_nameKeyPressed
+
+    private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
+        if (!nif.getText().isEmpty()) {
+            showInsert();
+        }
+    }//GEN-LAST:event_nameKeyReleased
+
+    private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
+        if (name.getForeground().equals(new Color(153, 153, 153))) {
+            name.setText("");
+            name.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_nameKeyTyped
+
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         nif.setEditable(true);
         nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
         name.setText("");
-        email.setText("");
+        
         number.setText("");
-        postal.setText("");
+        
         dateOfBirth.getModel().setValue(null);
         photo.setIcon(null);
         name.setEnabled(false);
-        email.setEnabled(false);
+        
         number.setEnabled(false);
         photo.setEnabled(false);
-        postal.setEnabled(false);
+        
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
         ZoneId systemTimeZone = ZoneId.systemDefault();
@@ -532,89 +464,6 @@ public class Update extends javax.swing.JDialog {
         dateOfBirth.setEnabled(false);
         update.setEnabled(false);
     }//GEN-LAST:event_resetActionPerformed
-
-    private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
-        if (!isLetter(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_UP
-                && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_LEFT
-                && evt.getKeyCode() != KeyEvent.VK_RIGHT && evt.getKeyCode() != KeyEvent.VK_SHIFT
-                && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_DELETE) {
-            JOptionPane.showMessageDialog(this, "Type only uppercase or lowercase letters, hyphens, and whitespace.", "UPdate - People v1.0", JOptionPane.WARNING_MESSAGE);
-            int posDelete = name.getText().indexOf(evt.getKeyChar());
-
-            if (posDelete != -1) {
-                StringBuilder newName = new StringBuilder(name.getText());
-                name.setText(newName.deleteCharAt(posDelete).toString());
-            }
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_nameKeyPressed
-
-    private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
-        if (name.getText().length() == 0) {
-            update.setEnabled(false);
-        } else if (!nif.getText().isEmpty()) {
-            update.setEnabled(true);
-        }
-    }//GEN-LAST:event_nameKeyReleased
-
-    private void photoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_photoMouseClicked
-        photo.setIcon(null);
-    }//GEN-LAST:event_photoMouseClicked
-
-    private void nifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nifActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nifActionPerformed
-
-    private void nifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nifMouseClicked
-        if (nif.getForeground().equals(new Color(153, 153, 153))) {
-            nif.setText("");
-            nif.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_nifMouseClicked
-
-    private void nameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameMouseClicked
-        if (name.getForeground().equals(new Color(153, 153, 153))) {
-            name.setText("");
-            name.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_nameMouseClicked
-
-    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_updateActionPerformed
-    private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
-        if (name.getForeground().equals(new Color(153, 153, 153))) {
-            name.setText("");
-            name.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_nameKeyTyped
-
-    private void emailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emailMouseClicked
-        if (email.getForeground().equals(new Color(153, 153, 153))) {
-            email.setText("");
-            email.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_emailMouseClicked
-
-    private void emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailKeyPressed
-
-    private void emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyReleased
-        // TODO add your handling code here:
-        if (isValidEmail(email.getText())) {
-            email.setForeground(Color.black);
-        } else {
-            email.setForeground(Color.red);
-        }
-        showInsert();
-    }//GEN-LAST:event_emailKeyReleased
-
-    private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
-        if (email.getForeground().equals(new Color(153, 153, 153))) {
-            email.setText("");
-            email.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_emailKeyTyped
 
     private void numberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numberMouseClicked
         if (number.getForeground().equals(new Color(153, 153, 153))) {
@@ -643,37 +492,6 @@ public class Update extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_numberKeyTyped
 
-    private void postalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_postalMouseClicked
-        if (postal.getForeground().equals(new Color(153, 153, 153))) {
-            postal.setText("");
-            postal.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_postalMouseClicked
-
-    private void postalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_postalKeyPressed
-
-    private void postalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalKeyReleased
-        if (isValidPostal(postal.getText())) {
-            postal.setForeground(Color.black);
-        } else {
-            postal.setForeground(Color.red);
-        }
-        showInsert();
-    }//GEN-LAST:event_postalKeyReleased
-
-    private void postalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalKeyTyped
-        if (postal.getForeground().equals(new Color(153, 153, 153))) {
-            postal.setText("");
-            postal.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_postalKeyTyped
-
-    private void postalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_postalActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -682,10 +500,7 @@ public class Update extends javax.swing.JDialog {
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField name;
