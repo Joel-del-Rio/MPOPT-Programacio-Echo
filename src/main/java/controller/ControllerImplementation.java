@@ -269,17 +269,39 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
+        String postalCodeInput = insert.getPostalCodeField().getText().trim();
+        
+        
+        String regex = "^(\\d{5})(?:[-\\s]?\\d{4})?$";
+        
+        
+        if (!postalCodeInput.matches(regex)) {
+            JOptionPane.showMessageDialog(
+                insert, 
+                "Invalid Postal Code format. Please enter a valid postal code (e.g., 12345 or 12345-6789).", 
+                insert.getTitle(), 
+                JOptionPane.ERROR_MESSAGE
+            );
+            return; 
+        }
+
+       
         Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
+        
+        
+        p.setPostalCode(postalCodeInput); 
+        
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
+        
         if (insert(p)) {
-            JOptionPane.showMessageDialog(insert, "Person inserted succesfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);
             insert.getReset().doClick();
-        };
+        }
 
     }
 
@@ -404,20 +426,29 @@ public class ControllerImplementation implements IController, ActionListener {
             readAll = new ReadAll(menu, true);
             readAll.getExportButton().addActionListener(this);
             DefaultTableModel model = (DefaultTableModel) readAll.getTable().getModel();
+            
+            // Limpiamos filas previas si las hubiera
+            model.setRowCount(0); 
+
+            // Recorremos la lista de personas insertando las 7 columnas en orden
             for (int i = 0; i < s.size(); i++) {
-                model.addRow(new Object[i]);
-                model.setValueAt(s.get(i).getNif(), i, 0);
-                model.setValueAt(s.get(i).getName(), i, 1);
-                if (s.get(i).getDateOfBirth() != null) {
-                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 2);
-                } else {
-                    model.setValueAt("", i, 2);
-                }
-                if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 3);
-                } else {
-                    model.setValueAt("no", i, 3);
-                }
+                Person person = s.get(i);
+                
+                String dateStr = (person.getDateOfBirth() != null) ? person.getDateOfBirth().toString() : "";
+                String photoStr = (person.getPhoto() != null) ? "yes" : "no";
+                
+                
+                Object[] rowData = new Object[] {
+                    person.getNif(),
+                    person.getName(),
+                    dateStr,
+                    photoStr,
+                    //mail
+                    person.getPhoneNumber(),       
+                    person.getPostalCode()   
+                };
+                
+                model.addRow(rowData);
             }
             readAll.setVisible(true);
         }
