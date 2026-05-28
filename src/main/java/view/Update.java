@@ -70,6 +70,9 @@ public class Update extends javax.swing.JDialog {
     public JTextField getPhoneField() {
     return number; 
     }
+    public JTextField getPostalCodeField() {
+    return PostalCode;
+    }
         
     
    private void showInsert() {
@@ -101,6 +104,8 @@ public class Update extends javax.swing.JDialog {
         read = new javax.swing.JButton();
         number = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        PostalCode = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update - People v1.1.0");
@@ -133,9 +138,7 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         getContentPane().add(jLabel1, gridBagConstraints);
 
         nif.setForeground(new java.awt.Color(153, 153, 153));
@@ -248,7 +251,7 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         getContentPane().add(jLabel8, gridBagConstraints);
@@ -330,11 +333,7 @@ public class Update extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        gridBagConstraints.gridy = 4;
         getContentPane().add(number, gridBagConstraints);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -349,6 +348,45 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         getContentPane().add(jLabel6, gridBagConstraints);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setText("Postal Code");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        getContentPane().add(jLabel2, gridBagConstraints);
+
+        PostalCode.setForeground(new java.awt.Color(153, 153, 153));
+        PostalCode.setText("Enter Postal Code");
+        PostalCode.setEnabled(false);
+        PostalCode.setMaximumSize(new java.awt.Dimension(400, 22));
+        PostalCode.setMinimumSize(new java.awt.Dimension(400, 22));
+        PostalCode.setPreferredSize(new java.awt.Dimension(400, 22));
+        PostalCode.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PostalCodeMouseClicked(evt);
+            }
+        });
+        PostalCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PostalCodeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PostalCodeKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PostalCodeKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(PostalCode, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -442,6 +480,7 @@ public class Update extends javax.swing.JDialog {
         name.setText("");
         
         number.setText("");
+        PostalCode.setText("");
         
         dateOfBirth.getModel().setValue(null);
         photo.setIcon(null);
@@ -492,14 +531,42 @@ public class Update extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_numberKeyTyped
 
+    private void PostalCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PostalCodeMouseClicked
+        if (PostalCode.getForeground().equals(new Color(153, 153, 153))) {
+        PostalCode.setText("");
+        PostalCode.setForeground(Color.black);
+    }
+    }//GEN-LAST:event_PostalCodeMouseClicked
+
+    private void PostalCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostalCodeKeyPressed
+
+    private void PostalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyReleased
+       if (isValidPostal(PostalCode.getText())) {
+        PostalCode.setForeground(Color.black);
+    } else {
+        PostalCode.setForeground(Color.red);
+    }
+    showInsert(); 
+    }//GEN-LAST:event_PostalCodeKeyReleased
+
+    private void PostalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyTyped
+         if (PostalCode.getForeground().equals(new Color(153, 153, 153))) {
+        PostalCode.setText("");
+        PostalCode.setForeground(Color.black);
+    }
+    }//GEN-LAST:event_PostalCodeKeyTyped
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField PostalCode;
     private org.jdatepicker.JDatePicker dateOfBirth;
-    private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
@@ -507,7 +574,6 @@ public class Update extends javax.swing.JDialog {
     private javax.swing.JTextField nif;
     private javax.swing.JTextField number;
     private javax.swing.JLabel photo;
-    private javax.swing.JTextField postal;
     private javax.swing.JButton read;
     private javax.swing.JButton reset;
     private javax.swing.JButton update;
