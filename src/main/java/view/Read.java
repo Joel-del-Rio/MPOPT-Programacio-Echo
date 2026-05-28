@@ -47,6 +47,9 @@ public class Read extends javax.swing.JDialog {
     public JTextField getPhoneField() {
         return number;
     }
+    public JTextField getPostalCodeField() {
+        return PostalCode;
+    }
     public JTextField getNif() {
         return nif;
     }
@@ -260,7 +263,7 @@ public class Read extends javax.swing.JDialog {
         jLabel8.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
@@ -288,7 +291,7 @@ public class Read extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
@@ -337,7 +340,7 @@ public class Read extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -369,6 +372,30 @@ public class Read extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel10, gridBagConstraints);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("Postal Code");
+        getContentPane().add(jLabel5, new java.awt.GridBagConstraints());
+
+        PostalCode.setMaximumSize(new java.awt.Dimension(400, 22));
+        PostalCode.setMinimumSize(new java.awt.Dimension(400, 22));
+        PostalCode.setPreferredSize(new java.awt.Dimension(400, 22));
+        PostalCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PostalCodeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PostalCodeKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PostalCodeKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        getContentPane().add(PostalCode, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -506,7 +533,20 @@ public class Read extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_numberKeyTyped
 
+    private void PostalCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostalCodeKeyPressed
+
+    private void PostalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostalCodeKeyReleased
+
+    private void PostalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostalCodeKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField PostalCode;
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JButton insert;
     private javax.swing.JLabel jLabel1;

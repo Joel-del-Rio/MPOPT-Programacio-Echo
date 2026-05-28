@@ -44,6 +44,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
 import view.Count;
+import view.Login;
 
 
 /**
@@ -67,6 +68,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private Update update;
     private ReadAll readAll;
     private Count count;
+    private Login login;
 
     /**
      * This constructor allows the controller to know which data storage option
@@ -78,6 +80,13 @@ public class ControllerImplementation implements IController, ActionListener {
     public ControllerImplementation(DataStorageSelection dSS) {
         this.dSS = dSS;
         ((JButton) (dSS.getAccept()[0])).addActionListener(this);
+    }
+
+    private static final java.util.Map<String, String> VALID_USERS = new java.util.HashMap<>();
+
+    static {
+        VALID_USERS.put("admin", "admin123");
+        VALID_USERS.put("user", "password1");
     }
 
     /**
@@ -99,6 +108,12 @@ public class ControllerImplementation implements IController, ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == dSS.getAccept()[0]) {
             handleDataStorageSelection();
+        } else if (e.getSource() == login.getLoginButton()) {
+            handleLoginAction();
+        } else if (e.getSource() == login.getResetButton()) {
+            login.getUsername().setText("");
+            login.getPassword().setText("");
+            login.getUsername().requestFocus();
         } else if (e.getSource() == menu.getInsert()) {
             handleInsertAction();
         } else if (insert != null && e.getSource() == insert.getInsert()) {
@@ -180,7 +195,38 @@ public class ControllerImplementation implements IController, ActionListener {
                 setupJPADatabase();
                 break;
         }
-        setupMenu();
+        setupLogin();
+    }
+
+    private void setupLogin() {
+        login = new Login();
+        login.setVisible(true);
+        login.getLoginButton().addActionListener(this);
+        login.getResetButton().addActionListener(this);
+    }
+
+    private void handleLoginAction() {
+        String enteredUser = login.getUsername().getText().trim();
+        String enteredPass = new String(login.getPassword().getPassword());
+
+        if (enteredUser.isEmpty() || enteredPass.isEmpty()) {
+            JOptionPane.showMessageDialog(login, "Invalid username or password.",
+                    "Login - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String storedPass = VALID_USERS.get(enteredUser);
+        if (storedPass != null && storedPass.equals(enteredPass)) {
+            JOptionPane.showMessageDialog(login, "Login successful.",
+                    "Login - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
+            login.dispose();
+            setupMenu();
+        } else {
+            JOptionPane.showMessageDialog(login, "Invalid username or password.",
+                    "Login - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            login.getPassword().setText("");
+            login.getPassword().requestFocus();
+        }
     }
 
     private void setupFileStorage() {
@@ -269,17 +315,25 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
+        
+
+       
         Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
+        
+        
+ 
+        
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
+        
         if (insert(p)) {
-            JOptionPane.showMessageDialog(insert, "Person inserted succesfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);
             insert.getReset().doClick();
-        };
+        }
 
     }
 
@@ -404,20 +458,29 @@ public class ControllerImplementation implements IController, ActionListener {
             readAll = new ReadAll(menu, true);
             readAll.getExportButton().addActionListener(this);
             DefaultTableModel model = (DefaultTableModel) readAll.getTable().getModel();
+            
+            // Limpiamos filas previas si las hubiera
+            model.setRowCount(0); 
+
+            // Recorremos la lista de personas insertando las 7 columnas en orden
             for (int i = 0; i < s.size(); i++) {
-                model.addRow(new Object[i]);
-                model.setValueAt(s.get(i).getNif(), i, 0);
-                model.setValueAt(s.get(i).getName(), i, 1);
-                if (s.get(i).getDateOfBirth() != null) {
-                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 2);
-                } else {
-                    model.setValueAt("", i, 2);
-                }
-                if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 3);
-                } else {
-                    model.setValueAt("no", i, 3);
-                }
+                Person person = s.get(i);
+                
+                String dateStr = (person.getDateOfBirth() != null) ? person.getDateOfBirth().toString() : "";
+                String photoStr = (person.getPhoto() != null) ? "yes" : "no";
+                
+                
+                Object[] rowData = new Object[] {
+                    person.getNif(),
+                    person.getName(),
+                    dateStr,
+                    photoStr,
+                    //mail
+                    person.getPhoneNumber(),       
+                    person.getPostalCode()   
+                };
+                
+                model.addRow(rowData);
             }
             readAll.setVisible(true);
         }

@@ -53,6 +53,7 @@ public class Insert extends javax.swing.JDialog {
     public JDatePicker getDateOfBirth() {
         return dateOfBirth;
     }
+    
 
     public JTextField getNif() {
         return nif;
