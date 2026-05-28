@@ -171,5 +171,10 @@ public class DAOFileSerializable implements IDAO {
         delete(p);
         insert(p);
     }
+    
+    @Override
+    public int count() throws IOException, ClassNotFoundException {
+        return readAll().size();
+    }
 
 }

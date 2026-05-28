@@ -37,6 +37,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
+import view.Count;
 
 /**
  * This class starts the visual part of the application and programs and manages
@@ -58,6 +59,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private Delete delete;
     private Update update;
     private ReadAll readAll;
+    private Count count;
 
     /**
      * This constructor allows the controller to know which data storage option
@@ -112,7 +114,38 @@ public class ControllerImplementation implements IController, ActionListener {
             handleReadAll();
         } else if (e.getSource() == menu.getDeleteAll()) {
             handleDeleteAll();
+        } else if (e.getSource() == menu.getCount()) {
+            handleCount();
         }
+    }
+
+    public void handleCount() {
+        int total = count();
+        count = new Count(menu, true);
+        count.getCount().setText(String.valueOf(total));
+        count.setVisible(true);
+    }
+
+    @Override
+    public int count() {
+        int total = 0;
+        try {
+            total = dao.count();
+        } catch (Exception ex) {
+            if (ex instanceof java.io.FileNotFoundException
+                    || ex instanceof java.io.IOException
+                    || ex instanceof java.text.ParseException
+                    || ex instanceof ClassNotFoundException
+                    || ex instanceof java.sql.SQLException
+                    || ex instanceof javax.persistence.PersistenceException) {
+                javax.swing.JOptionPane.showMessageDialog(menu,
+                        ex.getMessage() + " Closing application.",
+                        "Count - People v1.1.0",
+                        javax.swing.JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        }
+        return total;
     }
 
     private void handleDataStorageSelection() {
@@ -217,6 +250,7 @@ public class ControllerImplementation implements IController, ActionListener {
         menu.getDelete().addActionListener(this);
         menu.getReadAll().addActionListener(this);
         menu.getDeleteAll().addActionListener(this);
+        menu.getCount().addActionListener(this);
     }
 
     private void handleInsertAction() {
@@ -275,33 +309,33 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     public void handleDeletePerson() {
-    if (delete != null) {
+        if (delete != null) {
 
-        int confirm = JOptionPane.showConfirmDialog(
-                null,
-                "Are you sure you want to delete this person?",
-                "Delete - People v1.1.0",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-        );
-
-        // Solo elimina si el usuario pulsa "Sí"
-        if (confirm == JOptionPane.YES_OPTION) {
-
-            Person p = new Person(delete.getNif().getText());
-            delete(p);
-
-            JOptionPane.showMessageDialog(
+            int confirm = JOptionPane.showConfirmDialog(
                     null,
-                    "Person deleted succesfully!",
+                    "Are you sure you want to delete this person?",
                     "Delete - People v1.1.0",
-                    JOptionPane.INFORMATION_MESSAGE
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
             );
 
-            delete.getReset().doClick();
+            // Solo elimina si el usuario pulsa "Sí"
+            if (confirm == JOptionPane.YES_OPTION) {
+
+                Person p = new Person(delete.getNif().getText());
+                delete(p);
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Person deleted succesfully!",
+                        "Delete - People v1.1.0",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+                delete.getReset().doClick();
+            }
         }
     }
-}
 
     public void handleUpdateAction() {
         update = new Update(menu, true);
