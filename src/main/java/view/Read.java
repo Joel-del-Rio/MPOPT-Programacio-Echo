@@ -40,12 +40,7 @@ public class Read extends javax.swing.JDialog {
     public JDatePicker getDateOfBirth() {
         return dateOfBirth;
     }
-    public JTextField getPhoneField() {
-        return telefono;
-    }
-    public JTextField getPostalCodeField() {
-        return PostalCode;
-    }
+
     public JTextField getNif() {
         return nif;
     }
@@ -82,10 +77,6 @@ public class Read extends javax.swing.JDialog {
         dateOfBirth = new org.jdatepicker.JDatePicker();
         jLabel2 = new javax.swing.JLabel();
         reset = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        telefono = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        PostalCode = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Read - People v1.1.0");
@@ -99,7 +90,7 @@ public class Read extends javax.swing.JDialog {
         read.setPreferredSize(new java.awt.Dimension(187, 33));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
@@ -112,9 +103,13 @@ public class Read extends javax.swing.JDialog {
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel1, gridBagConstraints);
 
+        nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
@@ -131,7 +126,11 @@ public class Read extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 24);
         getContentPane().add(nif, gridBagConstraints);
 
         photo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -157,7 +156,7 @@ public class Read extends javax.swing.JDialog {
         jLabel3.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
@@ -169,7 +168,7 @@ public class Read extends javax.swing.JDialog {
         name.setPreferredSize(new java.awt.Dimension(400, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -183,7 +182,7 @@ public class Read extends javax.swing.JDialog {
         jLabel8.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
@@ -195,7 +194,7 @@ public class Read extends javax.swing.JDialog {
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -207,9 +206,8 @@ public class Read extends javax.swing.JDialog {
         jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 8;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 24);
@@ -227,71 +225,20 @@ public class Read extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(reset, gridBagConstraints);
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Phone");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        getContentPane().add(jLabel4, gridBagConstraints);
-
-        telefono.setMaximumSize(new java.awt.Dimension(400, 22));
-        telefono.setMinimumSize(new java.awt.Dimension(400, 22));
-        telefono.setPreferredSize(new java.awt.Dimension(400, 22));
-        telefono.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                telefonoKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                telefonoKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                telefonoKeyTyped(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 24);
-        getContentPane().add(telefono, gridBagConstraints);
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setText("Postal Code");
-        getContentPane().add(jLabel5, new java.awt.GridBagConstraints());
-
-        PostalCode.setMaximumSize(new java.awt.Dimension(400, 22));
-        PostalCode.setMinimumSize(new java.awt.Dimension(400, 22));
-        PostalCode.setPreferredSize(new java.awt.Dimension(400, 22));
-        PostalCode.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                PostalCodeKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                PostalCodeKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                PostalCodeKeyTyped(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        getContentPane().add(PostalCode, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyTyped
+        if (nif.getText().equals("Enter NIF number, letter is calculated (e.g., 12345678)")) {
+            nif.setText("");
+        }
         if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
             JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             evt.consume();
@@ -299,16 +246,11 @@ public class Read extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyTyped
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        nif.setText("");
+        nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
         nif.setEditable(true);
         name.setText("");
         photo.setIcon(null);
-        
-        
-        telefono.setText(""); 
-        PostalCode.setText("");
-        
-        
+        //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
         ZoneId systemTimeZone = ZoneId.systemDefault();
         ZonedDateTime zonedDateTime = dateLocate.atStartOfDay(systemTimeZone);
@@ -317,7 +259,7 @@ public class Read extends javax.swing.JDialog {
         calendar.setTime(dateUtil);
         DateModel<Calendar> dateModel = (DateModel<Calendar>) dateOfBirth.getModel();
         dateModel.setValue(calendar);
-       
+        //... but do not display it in the JDatePicker box
         dateOfBirth.getModel().setValue(null);
     }//GEN-LAST:event_resetActionPerformed
 
@@ -338,44 +280,16 @@ public class Read extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_nifKeyPressed
 
-    private void telefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefonoKeyPressed
-
-    private void telefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefonoKeyReleased
-
-    private void telefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefonoKeyTyped
-
-    private void PostalCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PostalCodeKeyPressed
-
-    private void PostalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PostalCodeKeyReleased
-
-    private void PostalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PostalCodeKeyTyped
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField PostalCode;
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
     private javax.swing.JLabel photo;
     private javax.swing.JButton read;
     private javax.swing.JButton reset;
-    private javax.swing.JTextField telefono;
     // End of variables declaration//GEN-END:variables
 }

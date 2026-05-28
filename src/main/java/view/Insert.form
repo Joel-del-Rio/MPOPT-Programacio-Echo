@@ -73,6 +73,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="name">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Enter full name"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[400, 22]"/>
         </Property>
@@ -128,7 +129,7 @@
           <Font name="Segoe UI" size="10" style="2"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;PHOTO&lt;/center&gt;&lt;/br&gt;&lt;br&gt;&lt;center&gt; &lt;i&gt;Supported format: PNG.&lt;/i&gt;&lt;/center&gt;&lt;/br&gt;&lt;br&gt;&lt;center&gt;&lt;i&gt;Max. size 64KB&lt;/i&gt;&lt;/center&gt;&lt;br&gt;&lt;center&gt;&lt;i&gt;Drop your file here&lt;/i&gt;&lt;/center&gt;&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;PHOTO&lt;/center&gt;&lt;/br&gt;&lt;br&gt;&lt;center&gt; &lt;i&gt;Supported format: PNG.&lt;/i&gt;&lt;/center&gt;&lt;/br&gt;&lt;br&gt;&lt;center&gt;&lt;i&gt;Max. size 64KB&lt;/i&gt;&lt;/center&gt;&lt;/html&gt;"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -177,6 +178,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="nif">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Enter NIF number, letter is calculated (e.g., 12345678)"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[400, 22]"/>
         </Property>

@@ -20,6 +20,7 @@ import org.jdatepicker.JDatePicker;
 
 /**
  * Interface used to updated a person. It is mandatory to enter the NIF.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
@@ -116,6 +117,7 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel1, gridBagConstraints);
 
+        nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
@@ -267,7 +269,7 @@ public class Update extends javax.swing.JDialog {
         if (nif.getText().length() == 8) {
             evt.consume();
             nif.setText(calculateNifLetter(nif.getText()));
-            nif.setEditable(false);  
+            nif.setEditable(false);
             read.doClick();
         }
     }//GEN-LAST:event_nifKeyPressed
@@ -281,6 +283,9 @@ public class Update extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyReleased
 
     private void nifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyTyped
+        if (nif.getText().equals("Enter NIF number, letter is calculated (e.g., 12345678)")) {
+            nif.setText("");
+        }
         if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
             JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             evt.consume();
@@ -289,10 +294,10 @@ public class Update extends javax.swing.JDialog {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         nif.setEditable(true);
-        nif.setText("");
+        nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
         name.setText("");
         dateOfBirth.getModel().setValue(null);
-        photo.setIcon(null); 
+        photo.setIcon(null);
         name.setEnabled(false);
         photo.setEnabled(false);
         //We reset the calendar date to the current date ...
@@ -325,7 +330,7 @@ public class Update extends javax.swing.JDialog {
     private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
         if (name.getText().length() == 0) {
             update.setEnabled(false);
-        }else if(!nif.getText().isEmpty()){
+        } else if (!nif.getText().isEmpty()) {
             update.setEnabled(true);
         }
     }//GEN-LAST:event_nameKeyReleased
