@@ -60,6 +60,9 @@ public class Insert extends javax.swing.JDialog {
     public JLabel getPhoto() {
         return photo;
     }
+    public JTextField getPhoneField() {
+    return PhoneNumber; 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,13 +184,7 @@ public class Insert extends javax.swing.JDialog {
         jLabel5.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel5.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel5.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
-        getContentPane().add(jLabel5, gridBagConstraints);
+        getContentPane().add(jLabel5, new java.awt.GridBagConstraints());
 
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
@@ -288,6 +285,7 @@ public class Insert extends javax.swing.JDialog {
         nif.setEditable(true);
         nif.setText("");
         name.setText("");
+        PhoneNumber.setText("");
         photo.setIcon(null);
         
         PostalCode.setText("");

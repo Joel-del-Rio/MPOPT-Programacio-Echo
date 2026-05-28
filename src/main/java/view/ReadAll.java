@@ -15,6 +15,8 @@ public class ReadAll extends javax.swing.JDialog {
     public ReadAll(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        // Configuración para centrar el texto de las celdas
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment((int) JTable.CENTER_ALIGNMENT);
         
