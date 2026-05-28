@@ -488,7 +488,7 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     public void handleExportCSV() {
-        System.out.println(">>> handleExportCSV() llamado"); // <-- añade esto al inicio
+        System.out.println(">>> handleExportCSV() llamado"); 
         String dateStr = new SimpleDateFormat("yyyyMMdd").format(new Date());
         String fileName = "people_data_" + dateStr + ".csv";
 
