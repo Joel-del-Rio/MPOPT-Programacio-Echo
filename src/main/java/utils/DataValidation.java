@@ -45,4 +45,21 @@ public class DataValidation {
         Matcher matcher = phonePattern.matcher(phoneNumber);
         return matcher.matches();
     }
+    
+    
+    private static final String POSTAL_CODE_REGEX = "^(\\d{5})(?:[-\\s]?\\d{4})?$";
+    private static final Pattern postalCodePattern = Pattern.compile(POSTAL_CODE_REGEX);
+
+    
+    /**
+     
+     
+     */
+    public static boolean isValidPostalCode(String postalCode) {
+        if (postalCode == null || postalCode.trim().isEmpty()) {
+            return false;
+        }
+        Matcher matcher = postalCodePattern.matcher(postalCode);
+        return matcher.matches();
+    }
 }
