@@ -22,6 +22,7 @@ public class Person implements Serializable{
     private String name;
     private Date dateOfBirth;
     private String phoneNumber;
+    private String postalCode;
     @Transient
     private ImageIcon photo;
     @Lob
@@ -112,7 +113,13 @@ public class Person implements Serializable{
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-        
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }    
     /**
      * Function used to compare two Personas. There cannot be two or more people
      * with the same ID. Actually it isn't used in this project.

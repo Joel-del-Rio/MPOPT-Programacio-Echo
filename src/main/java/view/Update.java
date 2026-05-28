@@ -62,8 +62,8 @@ public class Update extends javax.swing.JDialog {
     public JButton getReset() {
         return reset;
     }
-    public JTextField getPhoneField() {
-    return PhoneNumber; 
+    public JTextField getPostalCodeField() {
+        return PostalCode;
     }
 
     /**
@@ -88,7 +88,7 @@ public class Update extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         read = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        PhoneNumber = new javax.swing.JTextField();
+        PostalCode = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update - People v1.1.0");
@@ -102,7 +102,7 @@ public class Update extends javax.swing.JDialog {
         update.setPreferredSize(new java.awt.Dimension(194, 33));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
@@ -231,7 +231,7 @@ public class Update extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
@@ -242,9 +242,9 @@ public class Update extends javax.swing.JDialog {
         jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.gridheight = 7;
+        gridBagConstraints.gridheight = 8;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 12);
@@ -253,40 +253,40 @@ public class Update extends javax.swing.JDialog {
         read.setText("readnoVisible");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 12);
         getContentPane().add(read, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Phone Number");
+        jLabel4.setText("Postal Code");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 3;
         getContentPane().add(jLabel4, gridBagConstraints);
 
-        PhoneNumber.setMaximumSize(new java.awt.Dimension(400, 22));
-        PhoneNumber.setMinimumSize(new java.awt.Dimension(400, 22));
-        PhoneNumber.setPreferredSize(new java.awt.Dimension(400, 22));
-        PhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+        PostalCode.setMaximumSize(new java.awt.Dimension(400, 22));
+        PostalCode.setMinimumSize(new java.awt.Dimension(400, 22));
+        PostalCode.setPreferredSize(new java.awt.Dimension(400, 22));
+        PostalCode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                PhoneNumberKeyPressed(evt);
+                PostalCodeKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                PhoneNumberKeyReleased(evt);
+                PostalCodeKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                PhoneNumberKeyTyped(evt);
+                PostalCodeKeyTyped(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 24);
-        getContentPane().add(PhoneNumber, gridBagConstraints);
+        getContentPane().add(PostalCode, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -325,6 +325,8 @@ public class Update extends javax.swing.JDialog {
         photo.setIcon(null); 
         name.setEnabled(false);
         photo.setEnabled(false);
+        
+        PostalCode.setText("");
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
         ZoneId systemTimeZone = ZoneId.systemDefault();
@@ -364,28 +366,24 @@ public class Update extends javax.swing.JDialog {
         photo.setIcon(null);
     }//GEN-LAST:event_photoMouseClicked
 
-    private void PhoneNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PhoneNumberKeyPressed
+    private void PostalCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_PhoneNumberKeyPressed
+    }//GEN-LAST:event_PostalCodeKeyPressed
 
-    private void PhoneNumberKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PhoneNumberKeyReleased
+    private void PostalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_PhoneNumberKeyReleased
+    }//GEN-LAST:event_PostalCodeKeyReleased
 
-    private void PhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PhoneNumberKeyTyped
-        if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
-        JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-        evt.consume();
-        }
-    
-    }//GEN-LAST:event_PhoneNumberKeyTyped
+    private void PostalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostalCodeKeyTyped
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField PhoneNumber;
+    private javax.swing.JTextField PostalCode;
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
