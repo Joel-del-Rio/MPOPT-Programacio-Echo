@@ -22,18 +22,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.persistence.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
@@ -116,6 +120,8 @@ public class ControllerImplementation implements IController, ActionListener {
             handleDeleteAll();
         } else if (e.getSource() == menu.getCount()) {
             handleCount();
+        } else if (readAll != null && e.getSource() == readAll.getExportButton()) {
+            handleExportCSV();
         }
     }
 
@@ -393,6 +399,7 @@ public class ControllerImplementation implements IController, ActionListener {
             JOptionPane.showMessageDialog(menu, "There are not people registered yet.", "Read All - People v1.1.0", JOptionPane.WARNING_MESSAGE);
         } else {
             readAll = new ReadAll(menu, true);
+            readAll.getExportButton().addActionListener(this);
             DefaultTableModel model = (DefaultTableModel) readAll.getTable().getModel();
             for (int i = 0; i < s.size(); i++) {
                 model.addRow(new Object[i]);
@@ -410,6 +417,56 @@ public class ControllerImplementation implements IController, ActionListener {
                 }
             }
             readAll.setVisible(true);
+        }
+    }
+
+    public void handleExportCSV() {
+        System.out.println(">>> handleExportCSV() llamado"); // <-- añade esto al inicio
+        String dateStr = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        String fileName = "people_data_" + dateStr + ".csv";
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setSelectedFile(new File(fileName));
+        int result = fileChooser.showSaveDialog(readAll);
+        if (result != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+        File selectedFile = fileChooser.getSelectedFile();
+
+        javax.swing.table.TableModel model = readAll.getTable().getModel();
+        try (FileWriter fw = new FileWriter(selectedFile)) {
+            // Cabeceras
+            for (int col = 0; col < model.getColumnCount(); col++) {
+                fw.write(model.getColumnName(col));
+                if (col < model.getColumnCount() - 1) {
+                    fw.write(",");
+                }
+            }
+            fw.write("\r\n");
+            // Filas
+            for (int row = 0; row < model.getRowCount(); row++) {
+                for (int col = 0; col < model.getColumnCount(); col++) {
+                    Object value = model.getValueAt(row, col);
+                    String cell = (value != null) ? value.toString() : "";
+                    if (cell.contains(",") || cell.contains("\"")) {
+                        cell = "\"" + cell.replace("\"", "\"\"") + "\"";
+                    }
+                    fw.write(cell);
+                    if (col < model.getColumnCount() - 1) {
+                        fw.write(",");
+                    }
+                }
+                fw.write("\r\n");
+            }
+            JOptionPane.showMessageDialog(readAll,
+                    "Data exported successfully as " + selectedFile.getName() + ".",
+                    "Export - People v1.1.0",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(readAll,
+                    "Error exporting data: " + ex.getMessage(),
+                    "Export - People v1.1.0",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
