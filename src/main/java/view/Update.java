@@ -150,9 +150,7 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        nif.setForeground(new java.awt.Color(153, 153, 153));
         nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
-        nif.setToolTipText("");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
@@ -497,9 +495,8 @@ public class Update extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyReleased
 
     private void nifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyTyped
-        if (nif.getForeground().equals(new Color(153, 153, 153))) {
+        if (nif.getText().equals("Enter NIF number, letter is calculated (e.g., 12345678)")) {
             nif.setText("");
-            nif.setForeground(Color.black);
         }
         if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
             JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
@@ -509,7 +506,7 @@ public class Update extends javax.swing.JDialog {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         nif.setEditable(true);
-        nif.setText("");
+        nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
         name.setText("");
         email.setText("");
         number.setText("");
@@ -552,8 +549,10 @@ public class Update extends javax.swing.JDialog {
     }//GEN-LAST:event_nameKeyPressed
 
     private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
-        if (!nif.getText().isEmpty()) {
-            showInsert();
+        if (name.getText().length() == 0) {
+            update.setEnabled(false);
+        } else if (!nif.getText().isEmpty()) {
+            update.setEnabled(true);
         }
     }//GEN-LAST:event_nameKeyReleased
 
