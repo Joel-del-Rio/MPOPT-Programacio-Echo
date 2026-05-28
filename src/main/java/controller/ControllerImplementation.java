@@ -42,6 +42,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
 import view.Count;
+import view.Login;
 
 /**
  * This class starts the visual part of the application and programs and manages
@@ -64,6 +65,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private Update update;
     private ReadAll readAll;
     private Count count;
+    private Login login;
 
     /**
      * This constructor allows the controller to know which data storage option
@@ -75,6 +77,13 @@ public class ControllerImplementation implements IController, ActionListener {
     public ControllerImplementation(DataStorageSelection dSS) {
         this.dSS = dSS;
         ((JButton) (dSS.getAccept()[0])).addActionListener(this);
+    }
+
+    private static final java.util.Map<String, String> VALID_USERS = new java.util.HashMap<>();
+
+    static {
+        VALID_USERS.put("admin", "admin123");
+        VALID_USERS.put("user", "password1");
     }
 
     /**
@@ -96,6 +105,12 @@ public class ControllerImplementation implements IController, ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == dSS.getAccept()[0]) {
             handleDataStorageSelection();
+        } else if (e.getSource() == login.getLoginButton()) {
+            handleLoginAction();
+        } else if (e.getSource() == login.getResetButton()) {
+            login.getUsername().setText("");
+            login.getPassword().setText("");
+            login.getUsername().requestFocus();
         } else if (e.getSource() == menu.getInsert()) {
             handleInsertAction();
         } else if (insert != null && e.getSource() == insert.getInsert()) {
@@ -177,7 +192,38 @@ public class ControllerImplementation implements IController, ActionListener {
                 setupJPADatabase();
                 break;
         }
-        setupMenu();
+        setupLogin();
+    }
+
+    private void setupLogin() {
+        login = new Login();
+        login.setVisible(true);
+        login.getLoginButton().addActionListener(this);
+        login.getResetButton().addActionListener(this);
+    }
+
+    private void handleLoginAction() {
+        String enteredUser = login.getUsername().getText().trim();
+        String enteredPass = new String(login.getPassword().getPassword());
+
+        if (enteredUser.isEmpty() || enteredPass.isEmpty()) {
+            JOptionPane.showMessageDialog(login, "Invalid username or password.",
+                    "Login - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String storedPass = VALID_USERS.get(enteredUser);
+        if (storedPass != null && storedPass.equals(enteredPass)) {
+            JOptionPane.showMessageDialog(login, "Login successful.",
+                    "Login - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
+            login.dispose();
+            setupMenu();
+        } else {
+            JOptionPane.showMessageDialog(login, "Invalid username or password.",
+                    "Login - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            login.getPassword().setText("");
+            login.getPassword().requestFocus();
+        }
     }
 
     private void setupFileStorage() {
