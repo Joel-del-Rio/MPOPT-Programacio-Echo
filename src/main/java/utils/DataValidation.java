@@ -4,6 +4,9 @@
  */
 package utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author Francesc Perez 
  * @version 1.1.0
@@ -27,4 +30,19 @@ public class DataValidation {
         return nifNoLetter + letter[Integer.parseInt(nifNoLetter)%23];
     }
 
+    private static final String PHONE_REGEX = "^\\+?[0-9]{1,4}?[-.\\s]?\\(?[0-9]{1,3}?\\)?[-.\\s]?[0-9]{1,4}[-.\\s]?[0-9]{1,4}[-.\\s]?[0-9]{1,9}$";
+    private static final Pattern phonePattern = Pattern.compile(PHONE_REGEX);
+
+    /**
+     * Valida si una cadena de texto cumple con el formato de teléfono adecuado.
+     * @param phoneNumber Cadena a validar
+     * @return true si es válido, false en caso contrario
+     */
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
+            return false;
+        }
+        Matcher matcher = phonePattern.matcher(phoneNumber);
+        return matcher.matches();
+    }
 }
