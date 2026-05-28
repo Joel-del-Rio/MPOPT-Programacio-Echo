@@ -476,7 +476,7 @@ public class ControllerImplementation implements IController, ActionListener {
                     person.getName(),
                     dateStr,
                     photoStr,
-                    //mail
+                    person.getEmail(),
                     person.getPhoneNumber(),       
                     person.getPostalCode()   
                 };

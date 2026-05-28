@@ -13,15 +13,15 @@ import java.util.regex.Pattern;
  */
 public class DataValidation {
     // Regex for email validation
-    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&-]+(?:\\.[a-zA-Z0-9_+&-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    
     private static final String PHONE_REGEX = "^\\+?[0-9]{1,4}[-.\\s]?(\\(?\\d{1,3}\\)?)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$";
     private static final String POSTAL_REGEX = "^\\d{5}$";
     
     // Email validation
     public static boolean isValidEmail(String email) {
-        return Pattern.matches(EMAIL_REGEX, email);
-    }
-
+    String emailRegex = "^[a-zA-Z0-9_+&-]+(?:\\.[a-zA-Z0-9_+&-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    return email != null && email.matches(emailRegex);
+}
     public static boolean isValidPhoneNumber(String phoneNumber) {
         return Pattern.matches(PHONE_REGEX, phoneNumber);
     }

@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
+import utils.DataValidation;
 import static utils.DataValidation.isValidEmail;
 import static utils.DataValidation.isValidPhoneNumber;
 import static utils.DataValidation.isValidPostal;
@@ -69,7 +70,9 @@ public class Insert extends javax.swing.JDialog {
     public JTextField getPostalCodeField() {
     return PostalCode;
     }
-
+    public JTextField getEmail() {
+    return Email;
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,8 +96,9 @@ public class Insert extends javax.swing.JDialog {
         number = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         PostalCode = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        Email = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Insert - People v1.1.0");
@@ -338,7 +342,7 @@ public class Insert extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.ipadx = 10;
         gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
@@ -347,14 +351,13 @@ public class Insert extends javax.swing.JDialog {
         getContentPane().add(number, gridBagConstraints);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setText("Postal code");
+        jLabel9.setText("Email");
         jLabel9.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel9.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel9.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(8, 2, 8, 44);
+        gridBagConstraints.gridy = 4;
         getContentPane().add(jLabel9, gridBagConstraints);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -364,24 +367,11 @@ public class Insert extends javax.swing.JDialog {
         jLabel10.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel10, gridBagConstraints);
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel11.setText("Phone number");
-        jLabel11.setMaximumSize(new java.awt.Dimension(100, 22));
-        jLabel11.setMinimumSize(new java.awt.Dimension(100, 22));
-        jLabel11.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
-        getContentPane().add(jLabel11, gridBagConstraints);
 
         PostalCode.setForeground(new java.awt.Color(153, 153, 153));
         PostalCode.setText("Enter Postal Code");
@@ -413,11 +403,54 @@ public class Insert extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
+        getContentPane().add(PostalCode, gridBagConstraints);
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel12.setText("Postal code");
+        jLabel12.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel12.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel12.setPreferredSize(new java.awt.Dimension(100, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(8, 2, 8, 44);
+        getContentPane().add(jLabel12, gridBagConstraints);
+
+        Email.setForeground(new java.awt.Color(153, 153, 153));
+        Email.setText("Enter Email");
+        Email.setToolTipText("");
+        Email.setMaximumSize(new java.awt.Dimension(400, 22));
+        Email.setMinimumSize(new java.awt.Dimension(400, 22));
+        Email.setPreferredSize(new java.awt.Dimension(400, 22));
+        Email.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EmailMouseClicked(evt);
+            }
+        });
+        Email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmailActionPerformed(evt);
+            }
+        });
+        Email.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EmailKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                EmailKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                EmailKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 24);
-        getContentPane().add(PostalCode, gridBagConstraints);
+        getContentPane().add(Email, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -462,6 +495,7 @@ public class Insert extends javax.swing.JDialog {
         
         number.setText("");
         PostalCode.setText("");
+        Email.setText("");
        
         photo.setIcon(null);
         
@@ -587,21 +621,53 @@ public class Insert extends javax.swing.JDialog {
     }
     }//GEN-LAST:event_PostalCodeKeyTyped
 
-    private void showInsert() {
-        if (!name.getText().isEmpty() && !nif.isEditable()) {
-            insert.setEnabled(true);
-        } else {
-            insert.setEnabled(false);
-        }
+    private void EmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailMouseClicked
+
+    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailActionPerformed
+
+    private void EmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailKeyPressed
+
+    private void EmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailKeyReleased
+        if (DataValidation.isValidEmail(Email.getText())) {
+        Email.setForeground(Color.black);
+    } else {
+        Email.setForeground(Color.red);
     }
+    showInsert();
+    }//GEN-LAST:event_EmailKeyReleased
+
+    private void EmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailKeyTyped
+
+   private void showInsert() {
+    boolean isNameValid = !name.getText().isEmpty() && !name.getText().equals("Enter full name");
+    boolean isNifValid = !nif.isEditable() && !nif.getText().isEmpty();
+    boolean isPhoneValid = isValidPhoneNumber(number.getText());
+    boolean isPostalValid = isValidPostal(PostalCode.getText());
+    boolean isEmailValid = DataValidation.isValidEmail(Email.getText()); // Cambia 'emailField' por el nombre de tu variable de texto
+
+    if (isNameValid && isNifValid && isPhoneValid && isPostalValid && isEmailValid) {
+        insert.setEnabled(true);
+    } else {
+        insert.setEnabled(false);
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Email;
     private javax.swing.JTextField PostalCode;
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JButton insert;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
@@ -610,9 +676,6 @@ public class Insert extends javax.swing.JDialog {
     private javax.swing.JTextField nif;
     private javax.swing.JTextField number;
     private javax.swing.JLabel photo;
-    private javax.swing.JTextField postal;
-    private javax.swing.JTextField postal1;
-    private javax.swing.JTextField postal2;
     private javax.swing.JButton reset;
     // End of variables declaration//GEN-END:variables
 }
