@@ -24,6 +24,7 @@ import static utils.DataValidation.isValidPostal;
 
 /**
  * Interface used to updated a person. It is mandatory to enter the NIF.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
@@ -437,7 +438,7 @@ public class Update extends javax.swing.JDialog {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         nif.setEditable(true);
-        nif.setText("");
+        nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
         name.setText("");
         
         number.setText("");
@@ -497,6 +498,7 @@ public class Update extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
@@ -505,6 +507,7 @@ public class Update extends javax.swing.JDialog {
     private javax.swing.JTextField nif;
     private javax.swing.JTextField number;
     private javax.swing.JLabel photo;
+    private javax.swing.JTextField postal;
     private javax.swing.JButton read;
     private javax.swing.JButton reset;
     private javax.swing.JButton update;
