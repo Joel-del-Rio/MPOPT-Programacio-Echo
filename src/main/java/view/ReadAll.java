@@ -15,12 +15,17 @@ public class ReadAll extends javax.swing.JDialog {
     public ReadAll(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        // Configuración para centrar el texto de las celdas
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment((int) JTable.CENTER_ALIGNMENT);
-        table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        
+        table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer); 
+        table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer); 
+        table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer); 
+        table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer); 
+        table.getColumnModel().getColumn(4).setCellRenderer(centerRenderer); 
+        
         setLocationRelativeTo(null);
     }
 
@@ -29,7 +34,7 @@ public class ReadAll extends javax.swing.JDialog {
     }
 
     public JButton getExportButton() {
-        return btnExport; // <-- ¿está este método?
+        return btnExport;
     }
 
     /**
@@ -56,14 +61,14 @@ public class ReadAll extends javax.swing.JDialog {
 
             },
             new String [] {
-                "NIF", "Name", "Date of Birth", "Photo"
+                "NIF", "Name", "Date of Birth", "Photo", "Phone "
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {

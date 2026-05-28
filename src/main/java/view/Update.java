@@ -62,6 +62,9 @@ public class Update extends javax.swing.JDialog {
     public JButton getReset() {
         return reset;
     }
+    public JTextField getPhoneField() {
+    return PhoneNumber; 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,6 +87,8 @@ public class Update extends javax.swing.JDialog {
         reset = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         read = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        PhoneNumber = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update - People v1.1.0");
@@ -97,7 +102,7 @@ public class Update extends javax.swing.JDialog {
         update.setPreferredSize(new java.awt.Dimension(194, 33));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
@@ -111,9 +116,6 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel1, gridBagConstraints);
 
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
@@ -133,10 +135,6 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 24);
         getContentPane().add(nif, gridBagConstraints);
 
         photo.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
@@ -233,7 +231,7 @@ public class Update extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
@@ -244,8 +242,9 @@ public class Update extends javax.swing.JDialog {
         jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridheight = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 12);
@@ -254,10 +253,40 @@ public class Update extends javax.swing.JDialog {
         read.setText("readnoVisible");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 12);
         getContentPane().add(read, gridBagConstraints);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("Phone Number");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        getContentPane().add(jLabel4, gridBagConstraints);
+
+        PhoneNumber.setMaximumSize(new java.awt.Dimension(400, 22));
+        PhoneNumber.setMinimumSize(new java.awt.Dimension(400, 22));
+        PhoneNumber.setPreferredSize(new java.awt.Dimension(400, 22));
+        PhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PhoneNumberKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PhoneNumberKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PhoneNumberKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 24);
+        getContentPane().add(PhoneNumber, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -291,6 +320,7 @@ public class Update extends javax.swing.JDialog {
         nif.setEditable(true);
         nif.setText("");
         name.setText("");
+        PhoneNumber.setText("");
         dateOfBirth.getModel().setValue(null);
         photo.setIcon(null); 
         name.setEnabled(false);
@@ -334,15 +364,33 @@ public class Update extends javax.swing.JDialog {
         photo.setIcon(null);
     }//GEN-LAST:event_photoMouseClicked
 
+    private void PhoneNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PhoneNumberKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PhoneNumberKeyPressed
+
+    private void PhoneNumberKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PhoneNumberKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PhoneNumberKeyReleased
+
+    private void PhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PhoneNumberKeyTyped
+        if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
+        JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        evt.consume();
+        }
+    
+    }//GEN-LAST:event_PhoneNumberKeyTyped
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField PhoneNumber;
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
