@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isLetter;
 import static utils.DataValidation.isNumber;
@@ -17,6 +18,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
+import static utils.DataValidation.isValidEmail;
+import static utils.DataValidation.isValidPhoneNumber;
+import static utils.DataValidation.isValidPostal;
 
 /**
  * Interface used to updated a person. It is mandatory to enter the NIF.
@@ -63,9 +67,17 @@ public class Update extends javax.swing.JDialog {
         return reset;
     }
     public JTextField getPhoneField() {
-    return PhoneNumber; 
+    return number; 
     }
-
+        
+    
+   private void showInsert() {
+        if (!name.getText().isEmpty() && name.getText().length() > 0) {
+            update.setEnabled(true);
+        } else {
+            update.setEnabled(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,10 +97,9 @@ public class Update extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         dateOfBirth = new org.jdatepicker.JDatePicker();
         reset = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         read = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        PhoneNumber = new javax.swing.JTextField();
+        number = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update - People v1.1.0");
@@ -100,9 +111,14 @@ public class Update extends javax.swing.JDialog {
         update.setMaximumSize(new java.awt.Dimension(194, 33));
         update.setMinimumSize(new java.awt.Dimension(194, 33));
         update.setPreferredSize(new java.awt.Dimension(194, 33));
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
@@ -116,11 +132,27 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel1, gridBagConstraints);
 
+        nif.setForeground(new java.awt.Color(153, 153, 153));
+        nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
+        nif.setToolTipText("");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
+        nif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nifMouseClicked(evt);
+            }
+        });
+        nif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nifActionPerformed(evt);
+            }
+        });
         nif.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nifKeyPressed(evt);
@@ -135,6 +167,10 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 24);
         getContentPane().add(nif, gridBagConstraints);
 
         photo.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
@@ -172,16 +208,26 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         getContentPane().add(jLabel3, gridBagConstraints);
 
+        name.setForeground(new java.awt.Color(153, 153, 153));
+        name.setText("Enter full name");
         name.setEnabled(false);
         name.setMaximumSize(new java.awt.Dimension(400, 22));
         name.setMinimumSize(new java.awt.Dimension(400, 22));
         name.setPreferredSize(new java.awt.Dimension(400, 22));
+        name.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nameMouseClicked(evt);
+            }
+        });
         name.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nameKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 nameKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nameKeyTyped(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -218,6 +264,20 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(dateOfBirth, gridBagConstraints);
+        JButton button = (JButton) dateOfBirth.getComponent(1);
+        button.setText("Select a date");
+
+        // tamaño del botón
+        button.setPreferredSize(new java.awt.Dimension(100, 22));
+        button.setMinimumSize(new java.awt.Dimension(100, 22));
+        button.setMaximumSize(new java.awt.Dimension(100, 22));
+
+        // quitar margen interno
+        button.setMargin(new java.awt.Insets(0,0,0,0));
+
+        // refrescar
+        button.revalidate();
+        button.repaint();
 
         reset.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         reset.setText("RESET");
@@ -231,52 +291,40 @@ public class Update extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(reset, gridBagConstraints);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.gridheight = 7;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 12);
-        getContentPane().add(jLabel2, gridBagConstraints);
-
         read.setText("readnoVisible");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 12);
         getContentPane().add(read, gridBagConstraints);
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Phone Number");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        getContentPane().add(jLabel4, gridBagConstraints);
-
-        PhoneNumber.setMaximumSize(new java.awt.Dimension(400, 22));
-        PhoneNumber.setMinimumSize(new java.awt.Dimension(400, 22));
-        PhoneNumber.setPreferredSize(new java.awt.Dimension(400, 22));
-        PhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+        number.setForeground(new java.awt.Color(153, 153, 153));
+        number.setText("Enter number");
+        number.setEnabled(false);
+        number.setMaximumSize(new java.awt.Dimension(400, 22));
+        number.setMinimumSize(new java.awt.Dimension(400, 22));
+        number.setPreferredSize(new java.awt.Dimension(400, 22));
+        number.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                numberMouseClicked(evt);
+            }
+        });
+        number.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                PhoneNumberKeyPressed(evt);
+                numberKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                PhoneNumberKeyReleased(evt);
+                numberKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                PhoneNumberKeyTyped(evt);
+                numberKeyTyped(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -285,18 +333,46 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 24);
-        getContentPane().add(PhoneNumber, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(number, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("Phone number");
+        jLabel6.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel6.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel6.setPreferredSize(new java.awt.Dimension(100, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel6, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void nifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nifMouseClicked
+        if (nif.getForeground().equals(new Color(153, 153, 153))) {
+            nif.setText("");
+            nif.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_nifMouseClicked
+
+    private void nifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nifActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nifActionPerformed
+
     private void nifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyPressed
         if (nif.getText().length() == 8) {
             evt.consume();
             nif.setText(calculateNifLetter(nif.getText()));
-            nif.setEditable(false);  
+            nif.setEditable(false);
             read.doClick();
         }
     }//GEN-LAST:event_nifKeyPressed
@@ -310,21 +386,69 @@ public class Update extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyReleased
 
     private void nifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyTyped
+        if (nif.getForeground().equals(new Color(153, 153, 153))) {
+            nif.setText("");
+            nif.setForeground(Color.black);
+        }
         if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
             JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             evt.consume();
         }
     }//GEN-LAST:event_nifKeyTyped
 
+    private void photoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_photoMouseClicked
+        photo.setIcon(null);
+    }//GEN-LAST:event_photoMouseClicked
+
+    private void nameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameMouseClicked
+        if (name.getForeground().equals(new Color(153, 153, 153))) {
+            name.setText("");
+            name.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_nameMouseClicked
+
+    private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
+        if (!isLetter(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_UP
+            && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_LEFT
+            && evt.getKeyCode() != KeyEvent.VK_RIGHT && evt.getKeyCode() != KeyEvent.VK_SHIFT
+            && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, "Type only uppercase or lowercase letters, hyphens, and whitespace.", "UPdate - People v1.0", JOptionPane.WARNING_MESSAGE);
+            int posDelete = name.getText().indexOf(evt.getKeyChar());
+
+            if (posDelete != -1) {
+                StringBuilder newName = new StringBuilder(name.getText());
+                name.setText(newName.deleteCharAt(posDelete).toString());
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_nameKeyPressed
+
+    private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
+        if (!nif.getText().isEmpty()) {
+            showInsert();
+        }
+    }//GEN-LAST:event_nameKeyReleased
+
+    private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
+        if (name.getForeground().equals(new Color(153, 153, 153))) {
+            name.setText("");
+            name.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_nameKeyTyped
+
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         nif.setEditable(true);
         nif.setText("");
         name.setText("");
-        PhoneNumber.setText("");
+        
+        number.setText("");
+        
         dateOfBirth.getModel().setValue(null);
-        photo.setIcon(null); 
+        photo.setIcon(null);
         name.setEnabled(false);
+        
+        number.setEnabled(false);
         photo.setEnabled(false);
+        
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
         ZoneId systemTimeZone = ZoneId.systemDefault();
@@ -340,60 +464,46 @@ public class Update extends javax.swing.JDialog {
         update.setEnabled(false);
     }//GEN-LAST:event_resetActionPerformed
 
-    private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
-        if (!isLetter(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_UP
-                && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_LEFT
-                && evt.getKeyCode() != KeyEvent.VK_RIGHT && evt.getKeyCode() != KeyEvent.VK_SHIFT
-                && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_DELETE) {
-            JOptionPane.showMessageDialog(this, "Type only uppercase or lowercase letters, hyphens, and whitespace.", "UPdate - People v1.0", JOptionPane.WARNING_MESSAGE);
-            int posDelete = name.getText().indexOf(evt.getKeyChar());
-            StringBuilder newName = new StringBuilder(name.getText());
-            name.setText(newName.deleteCharAt(posDelete).toString());
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_nameKeyPressed
-
-    private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
-        if (name.getText().length() == 0) {
-            update.setEnabled(false);
-        }else if(!nif.getText().isEmpty()){
-            update.setEnabled(true);
+    private void numberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numberMouseClicked
+        if (number.getForeground().equals(new Color(153, 153, 153))) {
+            number.setText("");
+            number.setForeground(Color.black);
         }
-    }//GEN-LAST:event_nameKeyReleased
+    }//GEN-LAST:event_numberMouseClicked
 
-    private void photoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_photoMouseClicked
-        photo.setIcon(null);
-    }//GEN-LAST:event_photoMouseClicked
-
-    private void PhoneNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PhoneNumberKeyPressed
+    private void numberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numberKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_PhoneNumberKeyPressed
+    }//GEN-LAST:event_numberKeyPressed
 
-    private void PhoneNumberKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PhoneNumberKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PhoneNumberKeyReleased
-
-    private void PhoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PhoneNumberKeyTyped
-        if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
-        JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-        evt.consume();
+    private void numberKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numberKeyReleased
+        if (isValidPhoneNumber(number.getText())) {
+            number.setForeground(Color.black);
+        } else {
+            number.setForeground(Color.red);
         }
-    
-    }//GEN-LAST:event_PhoneNumberKeyTyped
+        showInsert();
+    }//GEN-LAST:event_numberKeyReleased
+
+    private void numberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numberKeyTyped
+        if (number.getForeground().equals(new Color(153, 153, 153))) {
+            number.setText("");
+            number.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_numberKeyTyped
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField PhoneNumber;
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
+    private javax.swing.JTextField number;
     private javax.swing.JLabel photo;
     private javax.swing.JButton read;
     private javax.swing.JButton reset;

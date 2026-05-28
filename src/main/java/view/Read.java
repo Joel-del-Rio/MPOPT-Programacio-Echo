@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isNumber;
 
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
+import static utils.DataValidation.isValidPhoneNumber;
 
 /**
  * Interface used to read a person. It is mandatory to enter the NIF.
@@ -23,15 +25,17 @@ import org.jdatepicker.JDatePicker;
  */
 public class Read extends javax.swing.JDialog {
 
-    public Read(java.awt.Frame parent, boolean modal) {
+     public Read(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        read.setVisible(false);
+        insert.setVisible(false);
     }
 
     public JButton getRead() {
-        return read;
+        return insert;
     }
+
+
 
     public JTextField getNam() {
         return name;
@@ -41,7 +45,7 @@ public class Read extends javax.swing.JDialog {
         return dateOfBirth;
     }
     public JTextField getPhoneField() {
-        return telefono;
+        return number;
     }
     public JTextField getNif() {
         return nif;
@@ -58,7 +62,15 @@ public class Read extends javax.swing.JDialog {
     public void setReset(JButton reset) {
         this.reset = reset;
     }
-
+    
+    
+    private void showInsert() {
+        if (!name.getText().isEmpty() && !nif.isEditable()) {
+            insert.setEnabled(true);
+        } else {
+            insert.setEnabled(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,50 +81,158 @@ public class Read extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        read = new javax.swing.JButton();
+        insert = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        nif = new javax.swing.JTextField();
-        photo = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        dateOfBirth = new org.jdatepicker.JDatePicker();
-        jLabel2 = new javax.swing.JLabel();
         reset = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        telefono = new javax.swing.JTextField();
+        photo = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        nif = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        dateOfBirth = new org.jdatepicker.JDatePicker();
+        number = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Read - People v1.1.0");
         setMinimumSize(new java.awt.Dimension(660, 220));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        read.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        read.setText("READ");
-        read.setMaximumSize(new java.awt.Dimension(187, 33));
-        read.setMinimumSize(new java.awt.Dimension(187, 33));
-        read.setPreferredSize(new java.awt.Dimension(187, 33));
+        insert.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        insert.setText("INSERT");
+        insert.setMaximumSize(new java.awt.Dimension(187, 33));
+        insert.setMinimumSize(new java.awt.Dimension(187, 33));
+        insert.setPreferredSize(new java.awt.Dimension(187, 33));
+        insert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
-        getContentPane().add(read, gridBagConstraints);
+        getContentPane().add(insert, gridBagConstraints);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("NIF ");
+        jLabel1.setText("Name");
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         getContentPane().add(jLabel1, gridBagConstraints);
 
+        name.setForeground(new java.awt.Color(153, 153, 153));
+        name.setText("Enter full name");
+        name.setMaximumSize(new java.awt.Dimension(400, 22));
+        name.setMinimumSize(new java.awt.Dimension(400, 22));
+        name.setPreferredSize(new java.awt.Dimension(400, 22));
+        name.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nameMouseClicked(evt);
+            }
+        });
+        name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameActionPerformed(evt);
+            }
+        });
+        name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nameKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nameKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(name, gridBagConstraints);
+
+        reset.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        reset.setText("RESET");
+        reset.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        reset.setMaximumSize(new java.awt.Dimension(187, 33));
+        reset.setMinimumSize(new java.awt.Dimension(187, 33));
+        reset.setPreferredSize(new java.awt.Dimension(187, 33));
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(reset, gridBagConstraints);
+
+        photo.setBackground(new java.awt.Color(255, 255, 255));
+        photo.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
+        photo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        photo.setText("<html><center>PHOTO</center></br><br><center> <i>Supported format: PNG.</i></center></br><br><center><i>Max. size 64KB</i></center><br><center><i>Drop your file here</i></center></br></html>");
+        photo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        photo.setMaximumSize(new java.awt.Dimension(150, 135));
+        photo.setMinimumSize(new java.awt.Dimension(150, 135));
+        photo.setPreferredSize(new java.awt.Dimension(150, 135));
+        photo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                photoMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 24, 12, 12);
+        getContentPane().add(photo, gridBagConstraints);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("NIF");
+        jLabel5.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel5.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel5.setPreferredSize(new java.awt.Dimension(100, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
+        getContentPane().add(jLabel5, gridBagConstraints);
+
+        nif.setForeground(new java.awt.Color(153, 153, 153));
+        nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
+        nif.setToolTipText("");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
+        nif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nifMouseClicked(evt);
+            }
+        });
+        nif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nifActionPerformed(evt);
+            }
+        });
         nif.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nifKeyPressed(evt);
@@ -128,49 +248,10 @@ public class Read extends javax.swing.JDialog {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 24);
         getContentPane().add(nif, gridBagConstraints);
-
-        photo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        photo.setText("<html><center>PHOTO</center></html>");
-        photo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        photo.setEnabled(false);
-        photo.setMaximumSize(new java.awt.Dimension(150, 135));
-        photo.setMinimumSize(new java.awt.Dimension(150, 135));
-        photo.setPreferredSize(new java.awt.Dimension(150, 135));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 24, 12, 12);
-        getContentPane().add(photo, gridBagConstraints);
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setText("Name");
-        jLabel3.setMaximumSize(new java.awt.Dimension(100, 22));
-        jLabel3.setMinimumSize(new java.awt.Dimension(100, 22));
-        jLabel3.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
-        getContentPane().add(jLabel3, gridBagConstraints);
-
-        name.setEnabled(false);
-        name.setMaximumSize(new java.awt.Dimension(400, 22));
-        name.setMinimumSize(new java.awt.Dimension(400, 22));
-        name.setPreferredSize(new java.awt.Dimension(400, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
-        getContentPane().add(name, gridBagConstraints);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Date of Birth");
@@ -185,69 +266,73 @@ public class Read extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         getContentPane().add(jLabel8, gridBagConstraints);
 
-        dateOfBirth.setEnabled(false);
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
+        jLabel2.setRequestFocusEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 24);
+        getContentPane().add(jLabel2, gridBagConstraints);
+
         dateOfBirth.setMaximumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setMinimumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
+        dateOfBirth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateOfBirthActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(dateOfBirth, gridBagConstraints);
+        JButton button = (JButton) dateOfBirth.getComponent(1);
+        button.setText("Select a date");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 10;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 24);
-        getContentPane().add(jLabel2, gridBagConstraints);
+        // tamaño del botón
+        button.setPreferredSize(new java.awt.Dimension(100, 22));
+        button.setMinimumSize(new java.awt.Dimension(100, 22));
+        button.setMaximumSize(new java.awt.Dimension(100, 22));
 
-        reset.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        reset.setText("RESET");
-        reset.setMaximumSize(new java.awt.Dimension(187, 33));
-        reset.setMinimumSize(new java.awt.Dimension(187, 33));
-        reset.setPreferredSize(new java.awt.Dimension(187, 33));
-        reset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetActionPerformed(evt);
+        // quitar margen interno
+        button.setMargin(new java.awt.Insets(0,0,0,0));
+
+        // refrescar
+        button.revalidate();
+        button.repaint();
+
+        number.setForeground(new java.awt.Color(153, 153, 153));
+        number.setText("Enter number");
+        number.setToolTipText("");
+        number.setMaximumSize(new java.awt.Dimension(400, 22));
+        number.setMinimumSize(new java.awt.Dimension(400, 22));
+        number.setPreferredSize(new java.awt.Dimension(400, 22));
+        number.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                numberMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
-        getContentPane().add(reset, gridBagConstraints);
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Phone");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        getContentPane().add(jLabel4, gridBagConstraints);
-
-        telefono.setMaximumSize(new java.awt.Dimension(400, 22));
-        telefono.setMinimumSize(new java.awt.Dimension(400, 22));
-        telefono.setPreferredSize(new java.awt.Dimension(400, 22));
-        telefono.addKeyListener(new java.awt.event.KeyAdapter() {
+        number.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberActionPerformed(evt);
+            }
+        });
+        number.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                telefonoKeyPressed(evt);
+                numberKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                telefonoKeyReleased(evt);
+                numberKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                telefonoKeyTyped(evt);
+                numberKeyTyped(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -257,29 +342,79 @@ public class Read extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 24);
-        getContentPane().add(telefono, gridBagConstraints);
+        getContentPane().add(number, gridBagConstraints);
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setText("Phone number");
+        jLabel9.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel9.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel9.setPreferredSize(new java.awt.Dimension(100, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
+        getContentPane().add(jLabel9, gridBagConstraints);
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel10.setText("Phone number");
+        jLabel10.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel10.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel10.setPreferredSize(new java.awt.Dimension(100, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
+        getContentPane().add(jLabel10, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyTyped
-        if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
-            JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-            evt.consume();
+    private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_insertActionPerformed
+
+    private void nameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameMouseClicked
+        if (name.getForeground().equals(new Color(153, 153, 153))) {
+            name.setText("");
+            name.setForeground(Color.black);
         }
-    }//GEN-LAST:event_nifKeyTyped
+    }//GEN-LAST:event_nameMouseClicked
+
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameActionPerformed
+
+    private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
+        showInsert();
+    }//GEN-LAST:event_nameKeyReleased
+
+    private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
+        if (name.getForeground().equals(new Color(153, 153, 153))) {
+            name.setText("");
+            name.setForeground(Color.black);
+        }
+        if (!isLetter(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, "Type only uppercase or lowercase letters, hyphens, and whitespace.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            evt.consume();
+        } else if (isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_BACK_SPACE || evt.getKeyChar() == KeyEvent.VK_DELETE) {
+            showInsert();
+        }
+    }//GEN-LAST:event_nameKeyTyped
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        nif.setText("");
         nif.setEditable(true);
+        nif.setText("");
         name.setText("");
+
+        number.setText("");
+
         photo.setIcon(null);
-        
-        
-        telefono.setText(""); 
-        
-        
+
         LocalDate dateLocate = LocalDate.now();
         ZoneId systemTimeZone = ZoneId.systemDefault();
         ZonedDateTime zonedDateTime = dateLocate.atStartOfDay(systemTimeZone);
@@ -288,51 +423,106 @@ public class Read extends javax.swing.JDialog {
         calendar.setTime(dateUtil);
         DateModel<Calendar> dateModel = (DateModel<Calendar>) dateOfBirth.getModel();
         dateModel.setValue(calendar);
-       
+
         dateOfBirth.getModel().setValue(null);
+        insert.setEnabled(false);
     }//GEN-LAST:event_resetActionPerformed
 
-    private void nifKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyReleased
-        if (nif.getText().length() == 8) {
-            nif.setText(calculateNifLetter(nif.getText()));
-            nif.setEditable(false);
-            read.doClick();
+    private void photoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_photoMouseClicked
+        photo.setIcon(null);
+    }//GEN-LAST:event_photoMouseClicked
+
+    private void nifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nifMouseClicked
+        if (nif.getForeground().equals(new Color(153, 153, 153))) {
+            nif.setText("");
+            nif.setForeground(Color.black);
         }
-    }//GEN-LAST:event_nifKeyReleased
+    }//GEN-LAST:event_nifMouseClicked
+
+    private void nifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nifActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nifActionPerformed
 
     private void nifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyPressed
         if (nif.getText().length() == 8) {
             evt.consume();
             nif.setText(calculateNifLetter(nif.getText()));
             nif.setEditable(false);
-            read.doClick();
+            showInsert();
         }
     }//GEN-LAST:event_nifKeyPressed
 
-    private void telefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefonoKeyPressed
+    private void nifKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyReleased
+        if (nif.getText().length() == 8) {
+            nif.setText(calculateNifLetter(nif.getText()));
+            nif.setEditable(false);
+            showInsert();
+        }
+    }//GEN-LAST:event_nifKeyReleased
 
-    private void telefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefonoKeyReleased
+    private void nifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyTyped
+        if (nif.getForeground().equals(new Color(153, 153, 153))) {
+            nif.setText("");
+            nif.setForeground(Color.black);
+        }
+        if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            evt.consume();
+        }
+    }//GEN-LAST:event_nifKeyTyped
 
-    private void telefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyTyped
+    private void dateOfBirthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOfBirthActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_telefonoKeyTyped
+    }//GEN-LAST:event_dateOfBirthActionPerformed
+
+    private void numberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numberMouseClicked
+        if (number.getForeground().equals(new Color(153, 153, 153))) {
+            number.setText("");
+            number.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_numberMouseClicked
+
+    private void numberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numberActionPerformed
+
+    private void numberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numberKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numberKeyPressed
+
+    private void numberKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numberKeyReleased
+        if (isValidPhoneNumber(number.getText())) {
+            number.setForeground(Color.black);
+        } else {
+            number.setForeground(Color.red);
+        }
+        showInsert();
+    }//GEN-LAST:event_numberKeyReleased
+
+    private void numberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numberKeyTyped
+        if (number.getForeground().equals(new Color(153, 153, 153))) {
+            number.setText("");
+            number.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_numberKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
+    private javax.swing.JButton insert;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
+    private javax.swing.JTextField number;
     private javax.swing.JLabel photo;
-    private javax.swing.JButton read;
     private javax.swing.JButton reset;
-    private javax.swing.JTextField telefono;
     // End of variables declaration//GEN-END:variables
+
+    private boolean isLetter(char keyChar) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
