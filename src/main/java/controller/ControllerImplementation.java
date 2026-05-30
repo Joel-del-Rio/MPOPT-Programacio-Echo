@@ -69,6 +69,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private ReadAll readAll;
     private Count count;
     private Login login;
+    private String userRole;
 
     /**
      * This constructor allows the controller to know which data storage option
@@ -218,6 +219,7 @@ public class ControllerImplementation implements IController, ActionListener {
 
         String storedPass = VALID_USERS.get(enteredUser);
         if (storedPass != null && storedPass.equals(enteredPass)) {
+            userRole = enteredUser.equals("admin") ? "admin" : "employee";
             JOptionPane.showMessageDialog(login, "Login successful.",
                     "Login - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
             login.dispose();
@@ -299,6 +301,7 @@ public class ControllerImplementation implements IController, ActionListener {
 
     private void setupMenu() {
         menu = new Menu();
+        menu.configureForRole(userRole);
         menu.setVisible(true);
         menu.getInsert().addActionListener(this);
         menu.getRead().addActionListener(this);
