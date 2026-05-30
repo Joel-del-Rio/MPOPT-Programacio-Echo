@@ -266,9 +266,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateOfBirthActionPerformed"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="JButton button = (JButton) dateOfBirth.getComponent(1);&#xa;button.setText(&quot;Select a date&quot;);&#xa;&#xa;// tama&#xf1;o del bot&#xf3;n&#xa;button.setPreferredSize(new java.awt.Dimension(100, 22));&#xa;button.setMinimumSize(new java.awt.Dimension(100, 22));&#xa;button.setMaximumSize(new java.awt.Dimension(100, 22));&#xa;&#xa;// quitar margen interno&#xa;button.setMargin(new java.awt.Insets(0,0,0,0));&#xa;&#xa;// refrescar&#xa;button.revalidate();&#xa;button.repaint();"/>
-      </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
           <GridBagConstraints gridX="2" gridY="2" gridWidth="2" gridHeight="1" fill="1" ipadX="0" ipadY="0" insetsTop="12" insetsLeft="12" insetsBottom="12" insetsRight="24" anchor="10" weightX="0.0" weightY="0.0"/>

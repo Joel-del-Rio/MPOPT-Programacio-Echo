@@ -35,6 +35,7 @@ public class Insert extends javax.swing.JDialog {
     public Insert(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setDatePickerButtonText(dateOfBirth, "Select a date");
         DropPhotoListener d = new DropPhotoListener(photo, this);
         DropTarget dropTarget = new DropTarget(photo, d);
         insert.setEnabled(false);
@@ -55,7 +56,6 @@ public class Insert extends javax.swing.JDialog {
     public JDatePicker getDateOfBirth() {
         return dateOfBirth;
     }
-    
 
     public JTextField getNif() {
         return nif;
@@ -64,15 +64,19 @@ public class Insert extends javax.swing.JDialog {
     public JLabel getPhoto() {
         return photo;
     }
+
     public JTextField getPhoneField() {
-    return number; 
+        return number;
     }
+
     public JTextField getPostalCodeField() {
-    return PostalCode;
+        return PostalCode;
     }
+
     public JTextField getEmail() {
-    return Email;
-}
+        return Email;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -298,20 +302,6 @@ public class Insert extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(dateOfBirth, gridBagConstraints);
-        JButton button = (JButton) dateOfBirth.getComponent(1);
-        button.setText("Select a date");
-
-        // tamaño del botón
-        button.setPreferredSize(new java.awt.Dimension(100, 22));
-        button.setMinimumSize(new java.awt.Dimension(100, 22));
-        button.setMaximumSize(new java.awt.Dimension(100, 22));
-
-        // quitar margen interno
-        button.setMargin(new java.awt.Insets(0,0,0,0));
-
-        // refrescar
-        button.revalidate();
-        button.repaint();
 
         number.setForeground(new java.awt.Color(153, 153, 153));
         number.setText("Enter number");
@@ -456,6 +446,17 @@ public class Insert extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void setDatePickerButtonText(java.awt.Container container, String text) {
+        for (java.awt.Component c : container.getComponents()) {
+            if (c instanceof javax.swing.JButton btn) {
+                btn.setText(text);
+                btn.setPreferredSize(null); // ajusta el tamaño al nuevo texto
+            } else if (c instanceof java.awt.Container inner) {
+                setDatePickerButtonText(inner, text); // busca en niveles internos
+            }
+        }
+    }
+
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_insertActionPerformed
@@ -492,13 +493,13 @@ public class Insert extends javax.swing.JDialog {
         nif.setEditable(true);
         nif.setText("");
         name.setText("");
-        
+
         number.setText("");
         PostalCode.setText("");
         Email.setText("");
-       
+
         photo.setIcon(null);
-        
+
         LocalDate dateLocate = LocalDate.now();
         ZoneId systemTimeZone = ZoneId.systemDefault();
         ZonedDateTime zonedDateTime = dateLocate.atStartOfDay(systemTimeZone);
@@ -507,7 +508,7 @@ public class Insert extends javax.swing.JDialog {
         calendar.setTime(dateUtil);
         DateModel<Calendar> dateModel = (DateModel<Calendar>) dateOfBirth.getModel();
         dateModel.setValue(calendar);
-       
+
         dateOfBirth.getModel().setValue(null);
         insert.setEnabled(false);
     }//GEN-LAST:event_resetActionPerformed
@@ -592,9 +593,9 @@ public class Insert extends javax.swing.JDialog {
 
     private void PostalCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PostalCodeMouseClicked
         if (PostalCode.getForeground().equals(new Color(153, 153, 153))) {
-        PostalCode.setText("");
-        PostalCode.setForeground(Color.black);
-    }
+            PostalCode.setText("");
+            PostalCode.setForeground(Color.black);
+        }
     }//GEN-LAST:event_PostalCodeMouseClicked
 
     private void PostalCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostalCodeActionPerformed
@@ -607,18 +608,18 @@ public class Insert extends javax.swing.JDialog {
 
     private void PostalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyReleased
         if (isValidPostal(PostalCode.getText())) {
-        PostalCode.setForeground(Color.black);
-    } else {
-        PostalCode.setForeground(Color.red);
-    }
-    showInsert(); 
+            PostalCode.setForeground(Color.black);
+        } else {
+            PostalCode.setForeground(Color.red);
+        }
+        showInsert();
     }//GEN-LAST:event_PostalCodeKeyReleased
 
     private void PostalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyTyped
-       if (PostalCode.getForeground().equals(new Color(153, 153, 153))) {
-        PostalCode.setText("");
-        PostalCode.setForeground(Color.black);
-    }
+        if (PostalCode.getForeground().equals(new Color(153, 153, 153))) {
+            PostalCode.setText("");
+            PostalCode.setForeground(Color.black);
+        }
     }//GEN-LAST:event_PostalCodeKeyTyped
 
     private void EmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailMouseClicked
@@ -635,30 +636,30 @@ public class Insert extends javax.swing.JDialog {
 
     private void EmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailKeyReleased
         if (DataValidation.isValidEmail(Email.getText())) {
-        Email.setForeground(Color.black);
-    } else {
-        Email.setForeground(Color.red);
-    }
-    showInsert();
+            Email.setForeground(Color.black);
+        } else {
+            Email.setForeground(Color.red);
+        }
+        showInsert();
     }//GEN-LAST:event_EmailKeyReleased
 
     private void EmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_EmailKeyTyped
 
-   private void showInsert() {
-    boolean isNameValid = !name.getText().isEmpty() && !name.getText().equals("Enter full name");
-    boolean isNifValid = !nif.isEditable() && !nif.getText().isEmpty();
-    boolean isPhoneValid = isValidPhoneNumber(number.getText());
-    boolean isPostalValid = isValidPostal(PostalCode.getText());
-    boolean isEmailValid = DataValidation.isValidEmail(Email.getText()); // Cambia 'emailField' por el nombre de tu variable de texto
+    private void showInsert() {
+        boolean isNameValid = !name.getText().isEmpty() && !name.getText().equals("Enter full name");
+        boolean isNifValid = !nif.isEditable() && !nif.getText().isEmpty();
+        boolean isPhoneValid = isValidPhoneNumber(number.getText());
+        boolean isPostalValid = isValidPostal(PostalCode.getText());
+        boolean isEmailValid = DataValidation.isValidEmail(Email.getText()); // Cambia 'emailField' por el nombre de tu variable de texto
 
-    if (isNameValid && isNifValid && isPhoneValid && isPostalValid && isEmailValid) {
-        insert.setEnabled(true);
-    } else {
-        insert.setEnabled(false);
+        if (isNameValid && isNifValid && isPhoneValid && isPostalValid && isEmailValid) {
+            insert.setEnabled(true);
+        } else {
+            insert.setEnabled(false);
+        }
     }
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Email;

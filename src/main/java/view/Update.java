@@ -34,6 +34,7 @@ public class Update extends javax.swing.JDialog {
     public Update(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setDatePickerButtonText(dateOfBirth, "Select a date");
         setLocationRelativeTo(null);
         DropPhotoListener d = new DropPhotoListener(photo, this);
         DropTarget dropTarget = new DropTarget(photo, d);
@@ -68,30 +69,33 @@ public class Update extends javax.swing.JDialog {
     public JButton getReset() {
         return reset;
     }
-    public JTextField getPhoneField() {
-    return number; 
-    }
-    public JTextField getPostalCodeField() {
-    return PostalCode;
-    }
-    public JTextField getEmail() {
-    return Email;
-    }
-        
-    
-   private void showInsert() {
-    boolean isNameValid = !name.getText().isEmpty() && !name.getText().equals("Enter full name");
-    boolean isNifValid = !nif.isEditable() && !nif.getText().isEmpty();
-    boolean isPhoneValid = isValidPhoneNumber(number.getText());
-    boolean isPostalValid = isValidPostal(PostalCode.getText());
-    boolean isEmailValid = DataValidation.isValidEmail(Email.getText()); // Cambia 'emailField' por el nombre de tu variable de texto
 
-    if (isNameValid && isNifValid && isPhoneValid && isPostalValid && isEmailValid) {
-        update.setEnabled(true);
-    } else {
-        update.setEnabled(false);
+    public JTextField getPhoneField() {
+        return number;
     }
-}
+
+    public JTextField getPostalCodeField() {
+        return PostalCode;
+    }
+
+    public JTextField getEmail() {
+        return Email;
+    }
+
+    private void showInsert() {
+        boolean isNameValid = !name.getText().isEmpty() && !name.getText().equals("Enter full name");
+        boolean isNifValid = !nif.isEditable() && !nif.getText().isEmpty();
+        boolean isPhoneValid = isValidPhoneNumber(number.getText());
+        boolean isPostalValid = isValidPostal(PostalCode.getText());
+        boolean isEmailValid = DataValidation.isValidEmail(Email.getText()); // Cambia 'emailField' por el nombre de tu variable de texto
+
+        if (isNameValid && isNifValid && isPhoneValid && isPostalValid && isEmailValid) {
+            update.setEnabled(true);
+        } else {
+            update.setEnabled(false);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -122,6 +126,11 @@ public class Update extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update - People v1.1.0");
         setMinimumSize(new java.awt.Dimension(810, 280));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                formComponentHidden(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         update.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -272,6 +281,11 @@ public class Update extends javax.swing.JDialog {
         dateOfBirth.setMaximumSize(new java.awt.Dimension(359, 22));
         dateOfBirth.setMinimumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
+        dateOfBirth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateOfBirthActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -280,20 +294,6 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(dateOfBirth, gridBagConstraints);
-        JButton button = (JButton) dateOfBirth.getComponent(1);
-        button.setText("Select a date");
-
-        // tamaño del botón
-        button.setPreferredSize(new java.awt.Dimension(100, 22));
-        button.setMinimumSize(new java.awt.Dimension(100, 22));
-        button.setMaximumSize(new java.awt.Dimension(100, 22));
-
-        // quitar margen interno
-        button.setMargin(new java.awt.Insets(0,0,0,0));
-
-        // refrescar
-        button.revalidate();
-        button.repaint();
 
         reset.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         reset.setText("RESET");
@@ -439,6 +439,17 @@ public class Update extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void setDatePickerButtonText(java.awt.Container container, String text) {
+        for (java.awt.Component c : container.getComponents()) {
+            if (c instanceof javax.swing.JButton btn) {
+                btn.setText(text);
+                btn.setPreferredSize(null);
+            } else if (c instanceof java.awt.Container inner) {
+                setDatePickerButtonText(inner, text);
+            }
+        }
+    }
+
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_updateActionPerformed
@@ -495,9 +506,9 @@ public class Update extends javax.swing.JDialog {
 
     private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
         if (!isLetter(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_UP
-            && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_LEFT
-            && evt.getKeyCode() != KeyEvent.VK_RIGHT && evt.getKeyCode() != KeyEvent.VK_SHIFT
-            && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_DELETE) {
+                && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_LEFT
+                && evt.getKeyCode() != KeyEvent.VK_RIGHT && evt.getKeyCode() != KeyEvent.VK_SHIFT
+                && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_DELETE) {
             JOptionPane.showMessageDialog(this, "Type only uppercase or lowercase letters, hyphens, and whitespace.", "UPdate - People v1.0", JOptionPane.WARNING_MESSAGE);
             int posDelete = name.getText().indexOf(evt.getKeyChar());
 
@@ -525,19 +536,18 @@ public class Update extends javax.swing.JDialog {
         nif.setEditable(true);
         nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
         name.setText("");
-        
+
         number.setText("");
         PostalCode.setText("");
         Email.setText("");
 
-        
         dateOfBirth.getModel().setValue(null);
         photo.setIcon(null);
         name.setEnabled(false);
-        
+
         number.setEnabled(false);
         photo.setEnabled(false);
-        
+
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
         ZoneId systemTimeZone = ZoneId.systemDefault();
@@ -582,9 +592,9 @@ public class Update extends javax.swing.JDialog {
 
     private void PostalCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PostalCodeMouseClicked
         if (PostalCode.getForeground().equals(new Color(153, 153, 153))) {
-        PostalCode.setText("");
-        PostalCode.setForeground(Color.black);
-    }
+            PostalCode.setText("");
+            PostalCode.setForeground(Color.black);
+        }
     }//GEN-LAST:event_PostalCodeMouseClicked
 
     private void PostalCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyPressed
@@ -592,19 +602,19 @@ public class Update extends javax.swing.JDialog {
     }//GEN-LAST:event_PostalCodeKeyPressed
 
     private void PostalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyReleased
-       if (isValidPostal(PostalCode.getText())) {
-        PostalCode.setForeground(Color.black);
-    } else {
-        PostalCode.setForeground(Color.red);
-    }
-    showInsert(); 
+        if (isValidPostal(PostalCode.getText())) {
+            PostalCode.setForeground(Color.black);
+        } else {
+            PostalCode.setForeground(Color.red);
+        }
+        showInsert();
     }//GEN-LAST:event_PostalCodeKeyReleased
 
     private void PostalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyTyped
-         if (PostalCode.getForeground().equals(new Color(153, 153, 153))) {
-        PostalCode.setText("");
-        PostalCode.setForeground(Color.black);
-    }
+        if (PostalCode.getForeground().equals(new Color(153, 153, 153))) {
+            PostalCode.setText("");
+            PostalCode.setForeground(Color.black);
+        }
     }//GEN-LAST:event_PostalCodeKeyTyped
 
     private void EmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailMouseClicked
@@ -617,16 +627,24 @@ public class Update extends javax.swing.JDialog {
 
     private void EmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailKeyReleased
         if (DataValidation.isValidEmail(Email.getText())) {
-        Email.setForeground(Color.black);
-    } else {
-        Email.setForeground(Color.red);
-    }
-    showInsert();
+            Email.setForeground(Color.black);
+        } else {
+            Email.setForeground(Color.red);
+        }
+        showInsert();
     }//GEN-LAST:event_EmailKeyReleased
 
     private void EmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_EmailKeyTyped
+
+    private void dateOfBirthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOfBirthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateOfBirthActionPerformed
+
+    private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formComponentHidden
 
     /**
      * @param args the command line arguments
