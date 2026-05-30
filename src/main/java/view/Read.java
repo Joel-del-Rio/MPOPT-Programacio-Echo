@@ -22,22 +22,22 @@ import static utils.DataValidation.isValidPostal;
 
 /**
  * Interface used to read a person. It is mandatory to enter the NIF.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
 public class Read extends javax.swing.JDialog {
 
-     public Read(java.awt.Frame parent, boolean modal) {
+    public Read(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setDatePickerButtonText(dateOfBirth, "Select a date");
         insert.setVisible(false);
     }
 
     public JButton getRead() {
         return insert;
     }
-
-
 
     public JTextField getNam() {
         return name;
@@ -46,10 +46,11 @@ public class Read extends javax.swing.JDialog {
     public JDatePicker getDateOfBirth() {
         return dateOfBirth;
     }
+
     public JTextField getPhoneField() {
         return number;
     }
-    
+
     public JTextField getNif() {
         return nif;
     }
@@ -65,26 +66,29 @@ public class Read extends javax.swing.JDialog {
     public void setReset(JButton reset) {
         this.reset = reset;
     }
-    public JTextField getPostalCodeField() {
-    return PostalCode;
-    }
-    public JTextField getEmail() {
-    return Email;
-}
-    
-    private void showInsert() {
-    boolean isNameValid = !name.getText().isEmpty() && !name.getText().equals("Enter full name");
-    boolean isNifValid = !nif.isEditable() && !nif.getText().isEmpty();
-    boolean isPhoneValid = isValidPhoneNumber(number.getText());
-    boolean isPostalValid = isValidPostal(PostalCode.getText());
-    boolean isEmailValid = DataValidation.isValidEmail(Email.getText()); // Cambia 'emailField' por el nombre de tu variable de texto
 
-    if (isNameValid && isNifValid && isPhoneValid && isPostalValid && isEmailValid) {
-        insert.setEnabled(true);
-    } else {
-        insert.setEnabled(false);
+    public JTextField getPostalCodeField() {
+        return PostalCode;
     }
-}
+
+    public JTextField getEmail() {
+        return Email;
+    }
+
+    private void showInsert() {
+        boolean isNameValid = !name.getText().isEmpty() && !name.getText().equals("Enter full name");
+        boolean isNifValid = !nif.isEditable() && !nif.getText().isEmpty();
+        boolean isPhoneValid = isValidPhoneNumber(number.getText());
+        boolean isPostalValid = isValidPostal(PostalCode.getText());
+        boolean isEmailValid = DataValidation.isValidEmail(Email.getText()); // Cambia 'emailField' por el nombre de tu variable de texto
+
+        if (isNameValid && isNifValid && isPhoneValid && isPostalValid && isEmailValid) {
+            insert.setEnabled(true);
+        } else {
+            insert.setEnabled(false);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -311,20 +315,6 @@ public class Read extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(dateOfBirth, gridBagConstraints);
-        JButton button = (JButton) dateOfBirth.getComponent(1);
-        button.setText("Select a date");
-
-        // tamaño del botón
-        button.setPreferredSize(new java.awt.Dimension(100, 22));
-        button.setMinimumSize(new java.awt.Dimension(100, 22));
-        button.setMaximumSize(new java.awt.Dimension(100, 22));
-
-        // quitar margen interno
-        button.setMargin(new java.awt.Insets(0,0,0,0));
-
-        // refrescar
-        button.revalidate();
-        button.repaint();
 
         number.setForeground(new java.awt.Color(153, 153, 153));
         number.setText("Enter number");
@@ -466,6 +456,17 @@ public class Read extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void setDatePickerButtonText(java.awt.Container container, String text) {
+        for (java.awt.Component c : container.getComponents()) {
+            if (c instanceof javax.swing.JButton btn) {
+                btn.setText(text);
+                btn.setPreferredSize(null);
+            } else if (c instanceof java.awt.Container inner) {
+                setDatePickerButtonText(inner, text);
+            }
+        }
+    }
+
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_insertActionPerformed
@@ -602,9 +603,9 @@ public class Read extends javax.swing.JDialog {
 
     private void PostalCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PostalCodeMouseClicked
         if (PostalCode.getForeground().equals(new Color(153, 153, 153))) {
-        PostalCode.setText("");
-        PostalCode.setForeground(Color.black);
-    }
+            PostalCode.setText("");
+            PostalCode.setForeground(Color.black);
+        }
     }//GEN-LAST:event_PostalCodeMouseClicked
 
     private void PostalCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostalCodeActionPerformed
@@ -617,18 +618,18 @@ public class Read extends javax.swing.JDialog {
 
     private void PostalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyReleased
         if (isValidPostal(PostalCode.getText())) {
-        PostalCode.setForeground(Color.black);
-    } else {
-        PostalCode.setForeground(Color.red);
-    }
-    showInsert(); 
+            PostalCode.setForeground(Color.black);
+        } else {
+            PostalCode.setForeground(Color.red);
+        }
+        showInsert();
     }//GEN-LAST:event_PostalCodeKeyReleased
 
     private void PostalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostalCodeKeyTyped
-         if (PostalCode.getForeground().equals(new Color(153, 153, 153))) {
-        PostalCode.setText("");
-        PostalCode.setForeground(Color.black);
-    }
+        if (PostalCode.getForeground().equals(new Color(153, 153, 153))) {
+            PostalCode.setText("");
+            PostalCode.setForeground(Color.black);
+        }
     }//GEN-LAST:event_PostalCodeKeyTyped
 
     private void EmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailMouseClicked
@@ -645,11 +646,11 @@ public class Read extends javax.swing.JDialog {
 
     private void EmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailKeyReleased
         if (DataValidation.isValidEmail(Email.getText())) {
-        Email.setForeground(Color.black);
-    } else {
-        Email.setForeground(Color.red);
-    }
-    showInsert();
+            Email.setForeground(Color.black);
+        } else {
+            Email.setForeground(Color.red);
+        }
+        showInsert();
     }//GEN-LAST:event_EmailKeyReleased
 
     private void EmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EmailKeyTyped
